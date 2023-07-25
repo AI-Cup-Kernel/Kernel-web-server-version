@@ -9,6 +9,7 @@ class Node:
     def __init__(self, id) -> None:
         self.id = id
         self.owner = None # Player object
+        self.number_of_troops = 0 # integer
         self.component_number = None # integer
         self.special_items = dict()
         self.adj_main_map = [] # list of Node objects
