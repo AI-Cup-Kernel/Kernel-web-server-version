@@ -15,3 +15,8 @@ class Game:
         pass
 
     
+    def read_map(self, map_file: str) -> None:
+        pass
+
+    
+    
