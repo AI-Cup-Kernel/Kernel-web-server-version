@@ -3,6 +3,8 @@ game class contains all the components of the game
 including the main map, players, and the game state and turn number
 '''
 
+import json
+
 class Game:
     def __init__(self) -> None:
         self.list_of_players = [] # list of Player objects
@@ -16,7 +18,13 @@ class Game:
 
     
     def read_map(self, map_file: str) -> None:
-        pass
+         
+        with open(map_file,'r') as json_file:   #open jason file in to a json_file variable 
+            
+            json_py=json.load(json_file)        #load method coverts json to dictionary in python 
 
-    
+        self.list_of_players=json_py["list_of_players"]   
+        self.list_of_nodes=json_py["list_of_nodes"] 
+
+        
     
