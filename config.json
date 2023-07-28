@@ -1,5 +1,6 @@
 {
     "host": "localhost",
     "port": 12345,
-    "max_players": 3
+    "max_players": 3,
+    "client_port_start": 2000
 }
