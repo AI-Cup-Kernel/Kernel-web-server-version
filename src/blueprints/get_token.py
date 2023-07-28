@@ -3,6 +3,7 @@ from flask import current_app
 from flask import jsonify
 import jwt
 import importlib.util
+from flask import request
 
 
 # import the read_config function from tools/read_config.py
@@ -37,8 +38,12 @@ def login_func():
 
     # create the output dictionary
     output_dict = {'token': token, 'player_id': player_id, 'public_key': game.main_game.public_key_encoded, 'port': config['client_port_start']+player_id}
-    game.main_game.add_player(player_id)
     
+    # initialize the player
+    game.main_game.add_player(player_id)
+    game.main_game.players[player_id].port = config['client_port_start']+player_id
+    game.main_game.players[player_id].ip = request.remote_addr
+
     return jsonify(output_dict), 200
 
 
