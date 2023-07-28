@@ -37,7 +37,8 @@ def login_func():
 
     # create the output dictionary
     output_dict = {'token': token, 'player_id': player_id, 'public_key': game.main_game.public_key_encoded, 'port': config['client_port_start']+player_id}
-
+    game.main_game.add_player(player_id)
+    
     return jsonify(output_dict), 200
 
 
