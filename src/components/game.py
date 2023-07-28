@@ -4,6 +4,8 @@ including the main map, players, and the game state and turn number
 '''
 
 import json
+from node import Node
+
 
 class Game:
     def __init__(self) -> None:
@@ -21,10 +23,15 @@ class Game:
          
         with open(map_file,'r') as json_file:   #open jason file in to a json_file variable 
             
-            json_py=json.load(json_file)        #load method coverts json to dictionary in python 
+            json_py=json.load(json_file)        #load method converts json to dictionary in python 
 
-        self.list_of_players=json_py["list_of_players"]   
-        self.list_of_nodes=json_py["list_of_nodes"] 
+        for id in range(1,json_py["number_of_nodes"]+1):
 
-        
-    
+            node=Node(id)        #instance of node
+
+            for edje in (json_py["list_of_edges"]): 
+                
+                if id in edje:  #find neighbors of id
+                     node.adj_main_map.append(edje)
+
+            self.list_of_nodes.append(node)
