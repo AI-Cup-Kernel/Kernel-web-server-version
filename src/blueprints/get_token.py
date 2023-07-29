@@ -1,20 +1,16 @@
+"""
+in this API each player will get a token, player_id, public_key, and port for running a server
+client will use its server to know when its turn will start and when it should send its request to the server
+token is used for authentication of the client 
+cleint will use public to make the request comes from server not other clients
+"""
+
 from flask import Blueprint
 from flask import current_app
 from flask import jsonify
 import jwt
-import importlib.util
 from flask import request
 
-
-# import the read_config function from tools/read_config.py
-spec = importlib.util.spec_from_file_location('read_config', 'src/tools/read_config.py')
-read_config = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(read_config)
-
-# import main_game instance from components/game.py
-spec = importlib.util.spec_from_file_location('main_game', 'src/components/game.py')
-game = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(game)
 
 # initialize the login blueprint
 login = Blueprint('login', __name__)
@@ -22,31 +18,34 @@ login = Blueprint('login', __name__)
 # initialize the player_id
 player_id = 1
 
+# get the main_game instance from the flask global variable
+main_game = current_app.config['main_game']
+
 # read the config file
-config = read_config.read_config()
+config = current_app.config['read_config'].read_config()
 
 
 @login.route('/login', methods=['GET'])
 def login_func():
     # make sure there is no more than max_players players
     if player_id > config['max_players']:
-        output_dict = {'error': 'You are not allowed to login anymore'}
+        output_dict = {'error': 'game players is full'}
         return jsonify(output_dict), 403
 
     # create a token for the player
     token = jwt.encode({'player_id': player_id}, current_app.config['SECRET_KEY'], 'HS256')
 
     # create the output dictionary
-    output_dict = {'token': token, 'player_id': player_id, 'public_key': game.main_game.public_key_encoded, 'port': config['client_port_start']+player_id}
+    output_dict = {'token': token, 'player_id': player_id, 'public_key': main_game.public_key_encoded, 'port': config['client_port_start']+player_id}
     
     # initialize the player
-    game.main_game.add_player(player_id)
-    game.main_game.players[player_id].port = config['client_port_start']+player_id
-    game.main_game.players[player_id].ip = request.remote_addr
-
+    main_game.add_player(player_id)
+    main_game.players[player_id].port = output_dict['port']
+    main_game.players[player_id].ip = request.remote_addr
     return jsonify(output_dict), 200
 
 
+# This function will be called after login request successfully handled
 @login.after_request
 def after_request_func(response):
     global player_id
@@ -55,4 +54,3 @@ def after_request_func(response):
         # Increment the player_id
         player_id += 1
     return response
-
