@@ -25,13 +25,13 @@ class Game:
             
             json_py=json.load(json_file)        #load method converts json to dictionary in python 
 
-        for id in range(1,json_py["number_of_nodes"]+1):
+        for id in range(json_py["number_of_nodes"]):
 
             node=Node(id)        #instance of node
-
-            for edje in (json_py["list_of_edges"]): 
-                
-                if id in edje:  #find neighbors of id
-                     node.adj_main_map.append(edje)
-
             self.list_of_nodes.append(node)
+
+        for edje in (json_py["list_of_edges"]): 
+                
+                self.list_of_nodes[edje[0]].adj_main_map.append(edje)
+                self.list_of_nodes[edje[1]].adj_main_map.append(edje)
+        
