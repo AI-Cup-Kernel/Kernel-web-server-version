@@ -9,7 +9,10 @@ class Player:
         self.nodes = [] # list of Node objects that owned by this player
         self.id = id
         self.number_of_troops_to_place = 0 # integer
+        self.port = ""
+        self.ip = ""
         self.special_items = dict()
+        self.is_ready = False
     
     def eval_score(self) -> int:
         pass
