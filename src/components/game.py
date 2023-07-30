@@ -4,6 +4,8 @@ including the main map, players, and the game state and turn number
 '''
 
 import rsa
+from node import Node
+import json
 
 # import the Player class from components/player.py
 import importlib.util
@@ -37,7 +39,20 @@ class Game:
 
     
     def read_map(self, map_file: str) -> None:
-        pass
+                 
+        with open(map_file,'r') as json_file:   #open jason file in to a json_file variable 
+            
+            json_py=json.load(json_file)        #load method converts json to dictionary in python 
+
+        for id in range(json_py["number_of_nodes"]):
+
+            node=Node(id)        #instance of node
+            self.list_of_nodes.append(node)
+
+        for edje in (json_py["list_of_edges"]): 
+                
+            self.list_of_nodes[edje[0]].adj_main_map.append(edje)
+            self.list_of_nodes[edje[1]].adj_main_map.append(edje)
 
     
     def check_all_players_ready(self) -> None:
