@@ -4,7 +4,7 @@ including the main map, players, and the game state and turn number
 '''
 
 import rsa
-from node import Node
+from components.node import Node
 import json
 
 # import the Player class from components/player.py
