@@ -51,8 +51,8 @@ class Game:
 
         for edje in (json_py["list_of_edges"]): 
                 
-            self.list_of_nodes[edje[0]].adj_main_map.append(edje)
-            self.list_of_nodes[edje[1]].adj_main_map.append(edje)
+            self.list_of_nodes[edje[0]].adj_main_map.append(self.list_of_nodes[edje[1]])
+            self.list_of_nodes[edje[1]].adj_main_map.append(self.list_of_nodes[edje[0]])
 
     
     def check_all_players_ready(self) -> None:
