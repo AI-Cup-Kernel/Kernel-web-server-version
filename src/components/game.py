@@ -5,14 +5,8 @@ including the main map, players, and the game state and turn number
 
 import rsa
 from components.node import Node
+from components.player import Player
 import json
-
-# import the Player class from components/player.py
-import importlib.util
-spec = importlib.util.spec_from_file_location('Player', 'src/components/player.py')
-player = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(player)
-Player = player.Player
 
 
 class Game:
