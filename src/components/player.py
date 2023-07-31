@@ -13,6 +13,7 @@ class Player:
         self.ip = ""
         self.special_items = dict()
         self.is_ready = False
+        self.token = ''
     
     def eval_score(self) -> int:
         pass

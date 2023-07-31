@@ -12,7 +12,6 @@ def token_required(func):
 
     # use wraps to keep the original function name
     @wraps(func)
-
     def decorator():
         token = None
         output_dict = dict()
@@ -34,6 +33,6 @@ def token_required(func):
             output_dict['error'] = 'Token is invalid!'
             return jsonify(output_dict), 401
         
-         # Return the user information attached to the token
+        # call the function with the player_id
         return func(data['player_id'])
     return decorator

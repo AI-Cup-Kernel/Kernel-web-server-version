@@ -25,8 +25,14 @@ main_game = current_app.config['main_game']
 config = current_app.config['read_config'].read_config()
 
 
-@login.route('/login', methods=['GET'])
+@login.route('/login', methods=['POST'])
 def login_func():
+    # get the token from the request body
+    req = request.form.to_dict()
+    if 'token' not in req:
+        output_dict = {'error': 'token not found'}
+        return jsonify(output_dict), 400
+    token = req['token']
     # make sure there is no more than max_players players
     if player_id > config['max_players']:
         output_dict = {'error': 'game players is full'}
@@ -36,7 +42,7 @@ def login_func():
     token = jwt.encode({'player_id': player_id}, current_app.config['SECRET_KEY'], 'HS256')
 
     # create the output dictionary
-    output_dict = {'token': token, 'player_id': player_id, 'public_key': main_game.public_key_encoded, 'port': config['client_port_start']+player_id}
+    output_dict = {'token': token, 'player_id': player_id, 'port': config['client_port_start']+player_id}
     
     # initialize the player
     main_game.add_player(player_id)
