@@ -56,7 +56,7 @@ config = read_config.read_config()
 # import blueprints
 from blueprints.index import index
 from blueprints.get_token import login
-#from blueprints.initial_troops import init_troop
+from blueprints.initial_troops import init_troop
 from blueprints.ready import ready
 
 
@@ -70,7 +70,7 @@ app.register_blueprint(login)
 app.register_blueprint(ready)
 
 ## a blueprint for the initial troops API
-#app.register_blueprint(init_troop)
+app.register_blueprint(init_troop)
 
 
 

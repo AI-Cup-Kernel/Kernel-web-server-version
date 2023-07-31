@@ -15,13 +15,10 @@ class Game:
         self.players = dict() # key: player_id, value: Player object
 
         self.list_of_nodes = [] # list of Node objects
+
         self.state = None # that could be 'add troops': 1, 'attack': 2, 'move troops': 3
         self.turn_number = 0 # each turn is a round for a player to play
         self.player_turn = None # Player object: the player who is playing this turn
-        # Generate key pair (public key and private key)
-        (public_key, self.private_key) = rsa.newkeys(512)
-        # Encode the public key to send it to the server
-        self.public_key_encoded = public_key.save_pkcs1().decode('utf-8')
 
     def add_player(self, player_id: int) -> None:
         # add a player to the game if it doesn't exist
