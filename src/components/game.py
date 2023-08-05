@@ -5,7 +5,9 @@ including the main map, players, and the game state and turn number
 
 from components.node import Node
 from components.player import Player
+from turn_controlers.change_turn import change_trun
 import json
+from flask import current_app
 
 
 class Game:
@@ -46,8 +48,12 @@ class Game:
 
     
     def check_all_players_ready(self) -> None:
-        pass
-
+        if len(self.players) != current_app.config['config']['max_players']:
+            return 
+        for player in self.players.values():
+            if not player.is_ready:
+                return
+        change_trun()
 
     
     
