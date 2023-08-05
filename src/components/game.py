@@ -3,7 +3,6 @@ game class contains all the components of the game
 including the main map, players, and the game state and turn number
 '''
 
-import rsa
 from components.node import Node
 from components.player import Player
 import json
@@ -12,12 +11,12 @@ import json
 class Game:
     def __init__(self) -> None:
 
-        self.players = dict() # key: player_id, value: Player object
+        self.players = {} # player_id: player object
 
         self.list_of_nodes = [] # list of Node objects
 
-        self.state = None # that could be 'add troops': 1, 'attack': 2, 'move troops': 3
         self.turn_number = 0 # each turn is a round for a player to play
+        self.state = None # that could be 'add troops': 1, 'attack': 2, 'move troops': 3
         self.player_turn = None # Player object: the player who is playing this turn
 
     def add_player(self, player_id: int) -> None:
@@ -49,7 +48,6 @@ class Game:
     def check_all_players_ready(self) -> None:
         pass
 
-main_game = Game()
 
     
     

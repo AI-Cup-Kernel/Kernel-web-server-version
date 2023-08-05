@@ -1,3 +1,4 @@
 src/blueprints/__pycache__/
 src/tools/__pycache__/
 src/components/__pycache__/
+.DS_Store

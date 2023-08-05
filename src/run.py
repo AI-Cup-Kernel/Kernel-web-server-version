@@ -4,22 +4,14 @@
 """
 
 from flask import Flask
-import importlib.util
-from components.game import main_game
-
-# import the read_config function from tools/read_config.py
-spec = importlib.util.spec_from_file_location('read_config', 'src/tools/read_config.py')
-read_config = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(read_config)
-
-# import the check_token function from tools/check_token.py
-spec = importlib.util.spec_from_file_location('check_token', 'src/tools/check_token.py')
-check_token = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(check_token)
+from components.game import Game
+import tools.read_config as read_config
+import tools.check_token as check_token
 
 debug = False
 
 # read map file 
+main_game = Game()
 main_game.read_map('maps/map1.json')
 
 # debuger for map
@@ -34,7 +26,6 @@ app = Flask(__name__)
 app.app_context().push()
 
 
-
 # set the secret key
 app.config['SECRET_KEY'] = 'your-secret-key'
 
@@ -42,21 +33,18 @@ app.config['SECRET_KEY'] = 'your-secret-key'
 app.config['main_game'] = main_game
 
 # set the read_config function in the flask global variable
-app.config['read_config'] = read_config
+app.config['config'] = read_config.read_config()
 
 # set the check_token function in the flask global variable
 app.config['check_token'] = check_token
 
-
-# read the config file
-config = read_config.read_config()
 
 # register the blueprints
 
 # import blueprints
 from blueprints.index import index
 from blueprints.get_token import login
-from blueprints.initial_troops import init_troop
+#from blueprints.initial_troops import init_troop
 from blueprints.ready import ready
 
 
@@ -70,9 +58,9 @@ app.register_blueprint(login)
 app.register_blueprint(ready)
 
 ## a blueprint for the initial troops API
-app.register_blueprint(init_troop)
+#app.register_blueprint(init_troop)
 
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host=config['host'], port=config['port'])
+    app.run(debug=True, host=app.config['config']['host'], port=app.config['config']['port'])
