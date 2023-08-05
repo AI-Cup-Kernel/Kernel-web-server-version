@@ -5,9 +5,10 @@ including the main map, players, and the game state and turn number
 
 from components.node import Node
 from components.player import Player
-from turn_controlers.change_turn import change_trun
+from turn_controlers.change_turn import change_turn
 import json
 from flask import current_app
+import threading
 
 
 class Game:
@@ -20,6 +21,7 @@ class Game:
         self.turn_number = 0 # each turn is a round for a player to play
         self.state = None # that could be 'add troops': 1, 'attack': 2, 'move troops': 3
         self.player_turn = None # Player object: the player who is playing this turn
+        self.game_started = False # True if the game already started
 
     def add_player(self, player_id: int) -> None:
         # add a player to the game if it doesn't exist
@@ -48,12 +50,23 @@ class Game:
 
     
     def check_all_players_ready(self) -> None:
+        # check if the game started before or not
+        if self.game_started == True:
+            return
+        
+        # check if all players were logged in
         if len(self.players) != current_app.config['config']['max_players']:
-            return 
+            return
+         
+         # check if all players are ready
         for player in self.players.values():
             if not player.is_ready:
                 return
-        change_trun()
+            
+        # Create a new thread for the change_turn function
+        turn_thread = threading.Thread(target=change_turn, args=(self,))
+        turn_thread.start()
+        self.game_started = True
 
     
     
