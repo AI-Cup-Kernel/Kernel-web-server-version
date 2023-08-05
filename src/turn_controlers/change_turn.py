@@ -1,5 +1,4 @@
 import time
-from flask import current_app
 
 
 def change_turn(main_game):
