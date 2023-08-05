@@ -20,7 +20,7 @@ ready = Blueprint('ready', __name__)
 @current_app.config['check_token'].token_required
 def ready_func(player_id):
     try:
-        main_game.players[player_id].ready = True
+        main_game.players[player_id].is_ready = True
         output_dict = {"message": "every thing is ok, you should wait for other players to be ready"}
         main_game.check_all_players_ready()
         return jsonify(output_dict), 200
