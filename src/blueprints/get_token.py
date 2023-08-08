@@ -16,7 +16,7 @@ from flask import request
 login = Blueprint('login', __name__)
 
 # initialize the player_id
-player_id = 1
+player_id = 0
 
 # get the main_game instance from the flask global variable
 main_game = current_app.config['main_game']
@@ -32,7 +32,7 @@ def login_func():
         return jsonify(output_dict), 400
     player_token = req['token']
     # make sure there is no more than max_players players
-    if player_id > current_app.config['config']['max_players']:
+    if player_id >= current_app.config['config']['max_players']:
         output_dict = {'error': 'game players is full'}
         return jsonify(output_dict), 403
 
