@@ -2,7 +2,7 @@
 in this API each player will get a token, player_id, public_key, and port for running a server
 client will use its server to know when its turn will start and when it should send its request to the server
 token is used for authentication of the client 
-cleint will use public to make the request comes from server not other clients
+client will use public to make the request comes from server not other clients
 """
 
 from flask import Blueprint

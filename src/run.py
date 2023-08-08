@@ -14,7 +14,7 @@ debug = False
 main_game = Game()
 main_game.read_map('maps/map1.json')
 
-# debuger for map
+# debugger for map
 if debug:
     print("list of nodes: ")
     for i in range(len(main_game.list_of_nodes)):
