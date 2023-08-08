@@ -3,3 +3,4 @@ src/tools/__pycache__/
 src/components/__pycache__/
 .DS_Store
 src/turn_controlers/__pycache__/
+.vscode/
