@@ -1,5 +1,5 @@
 import time
-from turn_controlers.start_turn import turn_request
+from turn_controllers.start_turn import turn_request
 
 def change_turn(main_game):
     while True:
