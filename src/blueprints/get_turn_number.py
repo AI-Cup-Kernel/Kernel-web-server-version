@@ -1,9 +1,6 @@
 from flask import Blueprint , jsonify , current_app 
 from components.game import Game
 
-from tools.check_token import token_required
-from tools.check_player import check_player
-
 
 get_turn_number = Blueprint('get_turn_number',__name__)
 
