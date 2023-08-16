@@ -46,7 +46,8 @@ def login_func():
     # create the output dictionary
     output_dict = {'token': token,
                     'player_id': player_id, 
-                    'port': current_app.config['config']['client_port_start']+player_id}
+                    'port': current_app.config['config']['client_port_start']+player_id,
+                    'message': 'login successful'}
     
     # initialize the player
     main_game.add_player(player_id)
