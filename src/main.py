@@ -54,7 +54,8 @@ from blueprints.initial_troops import init_troop
 from blueprints.ready import ready
 from blueprints.get_owners import get_owners
 from blueprints.get_troops_count import get_troops_count
-
+from blueprints.get_state import get_state
+from blueprints.get_turn_number import get_turn_number
 
 ## a blueprint for the test server
 app.register_blueprint(index)
@@ -73,6 +74,12 @@ app.register_blueprint(get_owners)
 
 ## a blueprint for the get troops count API
 app.register_blueprint(get_troops_count)
+
+## a blueprint for the get state API
+app.register_blueprint(get_state)
+
+## a blueprint for the get turn number API
+app.register_blueprint(get_turn_number)
 
 
 if __name__ == "__main__":

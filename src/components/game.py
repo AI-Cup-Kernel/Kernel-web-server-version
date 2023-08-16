@@ -19,7 +19,7 @@ class Game:
         self.list_of_nodes = [] # list of Node objects
 
         self.turn_number = 0 # each turn is a round for a player to play
-        self.state = None # that could be 'add troops': 1, 'attack': 2, 'move troops': 3
+        self.state = 1 # that could be 'add troops': 1, 'attack': 2, 'move troops': 3
         self.player_turn = None # Player object: the player who is playing this turn
         self.game_started = False # True if the game already started
         self.game_state = 1 # 1: still need to initialize the troops, 2: the game started
