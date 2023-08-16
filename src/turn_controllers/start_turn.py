@@ -20,19 +20,12 @@ def turn_request(player_id: int, main_game) -> None:
     headers = {'x-access-token': token}
     try:
         response = requests.get(url, headers=headers)
+        if response.status_code != 200:
+            print(response['error'])
     except:
         print(f"player{player_id} didn't response")
         return -1
     
-    counter = 1
-    while response.status_code != 200:
-        response = requests.get(url, headers=headers)
-        counter += 1
-        if counter > 10:
-            print(f"player{player_id} didn't response")   
-            response = response.json()
-            if 'error' in response:
-                print(response['error'])
-            return -1
+
     return 1
     
