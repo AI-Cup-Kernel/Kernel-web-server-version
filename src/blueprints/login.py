@@ -1,9 +1,11 @@
-"""
-in this API each player will get a token, player_id, public_key, and port for running a server
-client will use its server to know when its turn will start and when it should send its request to the server
-token is used for authentication of the client 
-client will use public to make the request comes from server not other clients
-"""
+# author: Mohamad Mahdi Reisi 
+# Date: 2023/8/16
+
+# Description: This file defines a blueprint for the login API 
+# each player should send a request to this API to get a token and player_id 
+# it also gets a port number to run a server
+# player also should send a token/password to this API so server is going to use it to authenticate that the request comes from server 
+
 
 from flask import Blueprint
 from flask import current_app
@@ -25,12 +27,14 @@ main_game = current_app.config['main_game']
 
 @login.route('/login', methods=['POST'])
 def login_func():
+
     # get the token from the request body
     req = request.form.to_dict()
     if 'token' not in req:
         output_dict = {'error': 'token not found'}
         return jsonify(output_dict), 400
     player_token = req['token']
+
     # make sure there is no more than number_of_players players
     if player_id >= current_app.config['config']['number_of_players']:
         output_dict = {'error': 'game players is full'}
@@ -40,7 +44,9 @@ def login_func():
     token = jwt.encode({'player_id': player_id}, current_app.config['SECRET_KEY'], 'HS256')
 
     # create the output dictionary
-    output_dict = {'token': token, 'player_id': player_id, 'port': current_app.config['config']['client_port_start']+player_id}
+    output_dict = {'token': token,
+                    'player_id': player_id, 
+                    'port': current_app.config['config']['client_port_start']+player_id}
     
     # initialize the player
     main_game.add_player(player_id)
