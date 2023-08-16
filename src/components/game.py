@@ -5,7 +5,7 @@ including the main map, players, and the game state and turn number
 
 from components.node import Node
 from components.player import Player
-from turn_controlers.change_turn import change_turn
+from turn_controllers.change_turn import change_turn
 import json
 from flask import current_app
 import threading
@@ -19,10 +19,20 @@ class Game:
         self.list_of_nodes = [] # list of Node objects
 
         self.turn_number = 0 # each turn is a round for a player to play
-        self.state = None # that could be 'add troops': 1, 'attack': 2, 'move troops': 3
+        self.state = 1 # that could be 'add troops': 1, 'attack': 2, 'move troops': 3
         self.player_turn = None # Player object: the player who is playing this turn
         self.game_started = False # True if the game already started
         self.game_state = 1 # 1: still need to initialize the troops, 2: the game started
+        self.config = None # the config dictionary
+        self.finish_func = None # the function that will be called when the game is finished
+
+    def update_game_state(self) -> None:
+        # update the game state
+        # check if the players has enough turn to put all their initial troops
+        if self.game_state == 2:
+            return
+        if self.turn_number >= int(self.config["number_of_players"]) * int(self.config["initialize_troop"]):
+            self.game_state = 2
 
     def add_player(self, player_id: int) -> None:
         # add a player to the game if it doesn't exist
@@ -32,7 +42,6 @@ class Game:
     def update_component_numbers(self) -> None:
         pass
 
-    
     def read_map(self, map_file: str) -> None:
                  
         with open(map_file,'r') as json_file:   #open jason file in to a json_file variable 
@@ -49,14 +58,13 @@ class Game:
             self.list_of_nodes[edje[0]].adj_main_map.append(self.list_of_nodes[edje[1]])
             self.list_of_nodes[edje[1]].adj_main_map.append(self.list_of_nodes[edje[0]])
 
-    
     def check_all_players_ready(self) -> None:
         # check if the game started before or not
         if self.game_started == True:
             return
         
         # check if all players were logged in
-        if len(self.players) != current_app.config['config']['max_players']:
+        if len(self.players) != current_app.config['config']['number_of_players']:
             return
          
          # check if all players are ready
