@@ -12,7 +12,7 @@ main_game = current_app.config['main_game']
 @current_app.config['token_required']
 @current_app.config['check_player']
 
-def put_x_troop_in_region_y_func(player_id):
+def put_x_troops_in_region_y_func(player_id):
     if main_game.state != 1:
         output_dict = {'error':'the game is not in initializing troops state'}
         return jsonify(output_dict),400
@@ -44,5 +44,3 @@ def put_x_troop_in_region_y_func(player_id):
                     main_game.player_turn.number_of_troops_to_place -= number_of_troops
                     output_dict = {'success':'troops were placed in the desired region'}
                     return jsonify(output_dict),200
-
-        
