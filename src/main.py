@@ -6,7 +6,8 @@
 from flask import Flask
 from components.game import Game
 import tools.read_config as read_config
-import tools.check_token as check_token
+from flask import request
+import os
 
 debug = False
 
@@ -34,19 +35,40 @@ app.config['main_game'] = main_game
 
 # set the read_config function in the flask global variable
 app.config['config'] = read_config.read_config()
+main_game.config = app.config['config']
 
-# set the check_token function in the flask global variable
-app.config['check_token'] = check_token
+# set the game_finished function in the flask global variable
+own_pid = os.getpid()
+def kill_backend():
+    os.kill(own_pid, 9)
+    
+main_game.finish_func = kill_backend
+
+
+# set the debug variable in the flask global variable
+app.config['debug'] = debug
+
+# set the token_required and check_player functions in the flask global variable
+from tools.check_token import token_required
+from tools.check_player import check_player
+
+app.config['token_required'] = token_required
+app.config['check_player'] = check_player
 
 
 # register the blueprints
 
 # import blueprints
 from blueprints.index import index
-from blueprints.get_token import login
+from blueprints.login import login
 from blueprints.initial_troops import init_troop
 from blueprints.ready import ready
-
+from blueprints.get_owners import get_owners
+from blueprints.get_troops_count import get_troops_count
+from blueprints.get_state import get_state
+from blueprints.get_turn_number import get_turn_number
+from blueprints.get_adj import get_adj
+from blueprints.next_state import next_state
 
 ## a blueprint for the test server
 app.register_blueprint(index)
@@ -60,7 +82,23 @@ app.register_blueprint(ready)
 ## a blueprint for the initial troops API
 app.register_blueprint(init_troop)
 
+## a blueprint for the get owners API
+app.register_blueprint(get_owners)
 
+## a blueprint for the get troops count API
+app.register_blueprint(get_troops_count)
+
+## a blueprint for the get state API
+app.register_blueprint(get_state)
+
+## a blueprint for the get turn number API
+app.register_blueprint(get_turn_number)
+
+## a blueprint for the get adj API
+app.register_blueprint(get_adj)
+
+## a blueprint for the next state API
+app.register_blueprint(next_state)
 
 if __name__ == "__main__":
     app.run(debug=True, host=app.config['config']['host'], port=app.config['config']['port'])

@@ -17,7 +17,7 @@ ready = Blueprint('ready', __name__)
 
 
 @ready.route('/ready', methods=['GET'])
-@current_app.config['check_token'].token_required
+@current_app.config['token_required']
 def ready_func(player_id):
     try:
         main_game.players[player_id].is_ready = True
