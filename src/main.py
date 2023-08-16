@@ -46,7 +46,7 @@ app.config['check_player'] = check_player
 
 # import blueprints
 from blueprints.index import index
-from blueprints.get_token import login
+from blueprints.login import login
 from blueprints.initial_troops import init_troop
 from blueprints.ready import ready
 

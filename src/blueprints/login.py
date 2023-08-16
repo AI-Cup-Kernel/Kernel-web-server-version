@@ -31,8 +31,8 @@ def login_func():
         output_dict = {'error': 'token not found'}
         return jsonify(output_dict), 400
     player_token = req['token']
-    # make sure there is no more than max_players players
-    if player_id >= current_app.config['config']['max_players']:
+    # make sure there is no more than number_of_players players
+    if player_id >= current_app.config['config']['number_of_players']:
         output_dict = {'error': 'game players is full'}
         return jsonify(output_dict), 403
 
