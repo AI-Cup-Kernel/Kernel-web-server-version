@@ -26,6 +26,14 @@ class Game:
         self.config = None # the config dictionary
         self.finish_func = None # the function that will be called when the game is finished
 
+    def update_game_state(self) -> None:
+        # update the game state
+        # check if the players has enough turn to put all their initial troops
+        if self.game_state == 2:
+            return
+        if self.turn_number >= int(self.config["number_of_players"]) * int(self.config["initialize_troop"]):
+            self.game_state = 2
+
     def add_player(self, player_id: int) -> None:
         # add a player to the game if it doesn't exist
         if player_id not in self.players:

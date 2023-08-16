@@ -19,6 +19,7 @@ def change_turn(main_game):
         main_game.player_turn = main_game.players[player_id]
         resp = turn_request(player_id, main_game)
         check_finish(main_game)
+        main_game.update_game_state()
 
         if resp == -1:
             continue

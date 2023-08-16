@@ -16,7 +16,11 @@ def turn_request(player_id: int, main_game) -> None:
     ip = main_game.players[player_id].ip
 
     # make a request to player_id to start its turn
-    url = f'http://{ip}:{port}/turn'
+    if main_game.game_state == 1:
+        url = f'http://{ip}:{port}/init'
+    else:
+        url = f'http://{ip}:{port}/turn'
+
     headers = {'x-access-token': token}
     try:
         response = requests.get(url, headers=headers)
