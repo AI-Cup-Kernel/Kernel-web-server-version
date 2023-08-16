@@ -13,6 +13,7 @@ def change_turn(main_game):
         print("start turn:", main_game.turn_number)
         player_id = main_game.turn_number % len(main_game.players)
         main_game.turn_number += 1
+        main_game.state = 1
         main_game.player_turn = main_game.players[player_id]
         resp = turn_request(player_id, main_game)
         if resp == -1:

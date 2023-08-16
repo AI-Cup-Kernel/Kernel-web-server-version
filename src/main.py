@@ -57,6 +57,7 @@ from blueprints.get_troops_count import get_troops_count
 from blueprints.get_state import get_state
 from blueprints.get_turn_number import get_turn_number
 from blueprints.get_adj import get_adj
+from blueprints.next_state import next_state
 
 ## a blueprint for the test server
 app.register_blueprint(index)
@@ -84,6 +85,9 @@ app.register_blueprint(get_turn_number)
 
 ## a blueprint for the get adj API
 app.register_blueprint(get_adj)
+
+## a blueprint for the next state API
+app.register_blueprint(next_state)
 
 if __name__ == "__main__":
     app.run(debug=True, host=app.config['config']['host'], port=app.config['config']['port'])
