@@ -49,6 +49,7 @@ from blueprints.index import index
 from blueprints.login import login
 from blueprints.initial_troops import init_troop
 from blueprints.ready import ready
+from blueprints.get_owners import get_owners
 
 
 ## a blueprint for the test server
@@ -63,6 +64,8 @@ app.register_blueprint(ready)
 ## a blueprint for the initial troops API
 app.register_blueprint(init_troop)
 
+## a blueprint for the get owners API
+app.register_blueprint(get_owners)
 
 
 if __name__ == "__main__":
