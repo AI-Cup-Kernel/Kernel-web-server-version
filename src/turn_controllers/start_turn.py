@@ -23,7 +23,7 @@ def turn_request(player_id: int, main_game) -> None:
 
     headers = {'x-access-token': token}
     try:
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers=headers, timeout=main_game.config["timeout"])
         if response.status_code != 200:
             print(response['error'])
     except:
@@ -33,3 +33,24 @@ def turn_request(player_id: int, main_game) -> None:
 
     return 1
     
+
+def end(player_id, main_game):
+    # this function make a request to player_id to announce the end of its turn
+    token = main_game.players[player_id].token
+    port = main_game.players[player_id].port
+    ip = main_game.players[player_id].ip
+
+    # make a request to player_id to start its turn
+
+    url = f'http://{ip}:{port}/end'
+
+    headers = {'x-access-token': token}
+    try:
+        response = requests.get(url, headers=headers, timeout=main_game.config["timeout"])
+        if response.status_code != 200:
+            print(response['error'])
+    except:
+        print(f"player{player_id} didn't response")
+        return -1
+
+    return 1

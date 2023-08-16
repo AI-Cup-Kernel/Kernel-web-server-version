@@ -5,5 +5,6 @@
     "client_port_start": 2000,
     "turn_time": 1,
     "number_of_turns": 15,
-    "initialize_troop": 3
+    "initialize_troop": 1,
+    "timeout": 1
 }
