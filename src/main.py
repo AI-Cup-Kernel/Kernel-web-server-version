@@ -6,6 +6,8 @@
 from flask import Flask
 from components.game import Game
 import tools.read_config as read_config
+from flask import request
+import os
 
 debug = False
 
@@ -33,6 +35,15 @@ app.config['main_game'] = main_game
 
 # set the read_config function in the flask global variable
 app.config['config'] = read_config.read_config()
+main_game.config = app.config['config']
+
+# set the game_finished function in the flask global variable
+own_pid = os.getpid()
+def kill_backend():
+    os.kill(own_pid, 9)
+    
+main_game.finish_func = kill_backend
+
 
 # set the debug variable in the flask global variable
 app.config['debug'] = debug

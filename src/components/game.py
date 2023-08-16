@@ -23,6 +23,8 @@ class Game:
         self.player_turn = None # Player object: the player who is playing this turn
         self.game_started = False # True if the game already started
         self.game_state = 1 # 1: still need to initialize the troops, 2: the game started
+        self.config = None # the config dictionary
+        self.finish_func = None # the function that will be called when the game is finished
 
     def add_player(self, player_id: int) -> None:
         # add a player to the game if it doesn't exist
