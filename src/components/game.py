@@ -42,7 +42,6 @@ class Game:
     def update_component_numbers(self) -> None:
         pass
 
-    
     def read_map(self, map_file: str) -> None:
                  
         with open(map_file,'r') as json_file:   #open jason file in to a json_file variable 
@@ -59,7 +58,6 @@ class Game:
             self.list_of_nodes[edje[0]].adj_main_map.append(self.list_of_nodes[edje[1]])
             self.list_of_nodes[edje[1]].adj_main_map.append(self.list_of_nodes[edje[0]])
 
-    
     def check_all_players_ready(self) -> None:
         # check if the game started before or not
         if self.game_started == True:
