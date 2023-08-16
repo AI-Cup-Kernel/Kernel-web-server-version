@@ -9,4 +9,3 @@ def check_finish(main_game):
 def game_finished(main_game):
     # finish the game
     main_game.finish_func()
-    exit()
