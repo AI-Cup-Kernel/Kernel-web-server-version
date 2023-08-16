@@ -1,8 +1,6 @@
 from flask import Blueprint , jsonify , current_app 
 
 
-
-
 get_owners = Blueprint('get_owners',__name__) 
 
 main_game = current_app.config['main_game']
