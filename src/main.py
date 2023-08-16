@@ -34,6 +34,9 @@ app.config['main_game'] = main_game
 # set the read_config function in the flask global variable
 app.config['config'] = read_config.read_config()
 
+# set the debug variable in the flask global variable
+app.config['debug'] = debug
+
 # set the token_required and check_player functions in the flask global variable
 from tools.check_token import token_required
 from tools.check_player import check_player
@@ -50,6 +53,7 @@ from blueprints.login import login
 from blueprints.initial_troops import init_troop
 from blueprints.ready import ready
 from blueprints.get_owners import get_owners
+from blueprints.get_troops_count import get_troops_count
 
 
 ## a blueprint for the test server
@@ -66,6 +70,9 @@ app.register_blueprint(init_troop)
 
 ## a blueprint for the get owners API
 app.register_blueprint(get_owners)
+
+## a blueprint for the get troops count API
+app.register_blueprint(get_troops_count)
 
 
 if __name__ == "__main__":
