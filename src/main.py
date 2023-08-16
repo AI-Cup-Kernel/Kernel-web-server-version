@@ -6,7 +6,6 @@
 from flask import Flask
 from components.game import Game
 import tools.read_config as read_config
-import tools.check_token as check_token
 
 debug = False
 
@@ -35,8 +34,12 @@ app.config['main_game'] = main_game
 # set the read_config function in the flask global variable
 app.config['config'] = read_config.read_config()
 
-# set the check_token function in the flask global variable
-app.config['check_token'] = check_token
+# set the token_required and check_player functions in the flask global variable
+from tools.check_token import token_required
+from tools.check_player import check_player
+
+app.config['token_required'] = token_required
+app.config['check_player'] = check_player
 
 
 # register the blueprints
