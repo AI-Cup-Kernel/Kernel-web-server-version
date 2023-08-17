@@ -31,7 +31,8 @@ class Game:
         self.log_node_owner = []
         self.log_troop_count = []
         self.log_put_troop = []
-        
+        self.log_attack = []
+
     def update_game_state(self) -> None:
         # update the game state
         # check if the players has enough turn to put all their initial troops
@@ -90,10 +91,15 @@ class Game:
         node_obj.owner = player_obj
         for i in node_obj.adj_main_map:
             if i.owner is not None and i.owner.id == player_id:
-                i.adj_player_nodes.append(node_obj)
-                node_obj.adj_player_nodes.append(i)
+                i.adj_player_map.append(node_obj)
+                node_obj.adj_player_map.append(i)
     
     def remove_node_from_player(self, node_id, player_id):
-        pass
-    
-    
+        node_obj = self.list_of_nodes[node_id]
+        player_obj = self.players[player_id]
+        player_obj.nodes.remove(node_obj)
+        node_obj.owner = None
+        for i in node_obj.adj_player_map:
+            i.adj_player_map.remove(node_obj)
+
+        node_obj.adj_player_map = []
