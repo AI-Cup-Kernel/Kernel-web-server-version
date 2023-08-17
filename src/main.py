@@ -13,7 +13,7 @@ debug = False
 
 # read map file 
 main_game = Game()
-main_game.read_map('maps/map1.json')
+main_game.read_map('maps/map2.json')
 
 # debugger for map
 if debug:
