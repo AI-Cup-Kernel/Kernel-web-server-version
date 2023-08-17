@@ -70,6 +70,7 @@ from blueprints.get_adj import get_adj
 from blueprints.next_state import next_state
 from blueprints.put_one_troop import put_one_troop
 from blueprints.put_troop import put_troop
+from blueprints.get_player_id import get_player_id
 
 ## a blueprint for the test server
 app.register_blueprint(index)
@@ -103,6 +104,9 @@ app.register_blueprint(put_one_troop)
 
 ## a blueprint for the put troop API
 app.register_blueprint(put_troop)
+
+## a blueprint for the get player id API
+app.register_blueprint(get_player_id)
 
 if __name__ == "__main__":
     app.run(debug=True, host=app.config['config']['host'], port=app.config['config']['port'])
