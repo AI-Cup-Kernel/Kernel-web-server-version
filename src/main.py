@@ -69,6 +69,7 @@ from blueprints.get_turn_number import get_turn_number
 from blueprints.get_adj import get_adj
 from blueprints.next_state import next_state
 from blueprints.put_one_troop import put_one_troop
+from blueprints.put_troop import put_troop
 
 ## a blueprint for the test server
 app.register_blueprint(index)
@@ -99,6 +100,9 @@ app.register_blueprint(next_state)
 
 ## a blueprint for the put one troop API
 app.register_blueprint(put_one_troop)
+
+## a blueprint for the put troop API
+app.register_blueprint(put_troop)
 
 if __name__ == "__main__":
     app.run(debug=True, host=app.config['config']['host'], port=app.config['config']['port'])
