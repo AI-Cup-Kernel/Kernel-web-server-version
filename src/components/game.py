@@ -27,8 +27,11 @@ class Game:
         self.finish_func = None # the function that will be called when the game is finished
 
         # the following variables are used to for log file
-        self.initialize = [] # save this list for the log file to show the initial troops of the players
-
+        self.log_initialize = [] # save this list for the log file to show the initial troops of the players
+        self.log_node_owner = []
+        self.log_troop_count = []
+        self.log_put_troop = []
+        
     def update_game_state(self) -> None:
         # update the game state
         # check if the players has enough turn to put all their initial troops
