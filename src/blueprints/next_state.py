@@ -10,6 +10,10 @@ main_game = current_app.config['main_game']
 @current_app.config['token_required']
 @current_app.config['check_player']
 def next_state_func(player_id):
+    if main_game.game_state != 2:
+        output_dict={'error': 'The game is not in the turn state'}
+        return jsonify(output_dict),400
+    
     if main_game.state >= 3:
         output_dict={'error': 'you are in the last state'}
         return jsonify(output_dict),400

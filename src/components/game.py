@@ -16,7 +16,7 @@ class Game:
 
         self.players = {} # player_id: player object
 
-        self.list_of_nodes = [] # list of Node objects
+        self.list_of_nodes = {} #  of Node objects
 
         self.turn_number = 0 # each turn is a round for a player to play
         self.state = 1 # that could be 'add troops': 1, 'attack': 2, 'move troops': 3
@@ -26,12 +26,15 @@ class Game:
         self.config = None # the config dictionary
         self.finish_func = None # the function that will be called when the game is finished
 
+        # the following variables are used to for log file
+        self.initialize = [] # save this list for the log file to show the initial troops of the players
+
     def update_game_state(self) -> None:
         # update the game state
         # check if the players has enough turn to put all their initial troops
         if self.game_state == 2:
             return
-        if self.turn_number >= int(self.config["number_of_players"]) * int(self.config["initialize_troop"]):
+        if self.turn_number >= int(self.config["number_of_players"]) * int(self.config["initial_troop"]):
             self.game_state = 2
 
     def add_player(self, player_id: int) -> None:
@@ -51,12 +54,12 @@ class Game:
         for id in range(json_py["number_of_nodes"]):
 
             node=Node(id)        #instance of node
-            self.list_of_nodes.append(node)
+            self.list_of_nodes[id] = node
 
-        for edje in (json_py["list_of_edges"]): 
+        for edge in json_py["list_of_edges"]: 
                 
-            self.list_of_nodes[edje[0]].adj_main_map.append(self.list_of_nodes[edje[1]])
-            self.list_of_nodes[edje[1]].adj_main_map.append(self.list_of_nodes[edje[0]])
+            self.list_of_nodes[edge[0]].adj_main_map.append(self.list_of_nodes[edge[1]])
+            self.list_of_nodes[edge[1]].adj_main_map.append(self.list_of_nodes[edge[0]])
 
     def check_all_players_ready(self) -> None:
         # check if the game started before or not
@@ -77,5 +80,17 @@ class Game:
         turn_thread.start()
         self.game_started = True
 
+    def add_node_to_player(self, node_id, player_id):
+        node_obj = self.list_of_nodes[node_id]
+        player_obj = self.players[player_id]
+        player_obj.nodes.append(node_obj)
+        node_obj.owner = player_obj
+        for i in node_obj.adj_main_map:
+            if i.owner is not None and i.owner.id == player_id:
+                i.adj_player_nodes.append(node_obj)
+                node_obj.adj_player_nodes.append(i)
+    
+    def remove_node_from_player(self, node_id, player_id):
+        pass
     
     

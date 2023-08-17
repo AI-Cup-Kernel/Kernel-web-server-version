@@ -54,6 +54,7 @@ def login_func():
     main_game.players[player_id].port = output_dict['port']
     main_game.players[player_id].ip = request.remote_addr
     main_game.players[player_id].token = player_token
+    main_game.players[player_id].number_of_troops_to_place = main_game.config['initial_troop']
     return jsonify(output_dict), 200
 
 
