@@ -61,7 +61,6 @@ app.config['check_player'] = check_player
 # import blueprints
 from blueprints.index import index
 from blueprints.login import login
-from blueprints.initial_troops import init_troop
 from blueprints.ready import ready
 from blueprints.get_owners import get_owners
 from blueprints.get_troops_count import get_troops_count
@@ -69,6 +68,7 @@ from blueprints.get_state import get_state
 from blueprints.get_turn_number import get_turn_number
 from blueprints.get_adj import get_adj
 from blueprints.next_state import next_state
+from blueprints.put_one_troop import put_one_troop
 
 ## a blueprint for the test server
 app.register_blueprint(index)
@@ -78,9 +78,6 @@ app.register_blueprint(login)
 
 ## a blueprint for the ready API
 app.register_blueprint(ready)
-
-## a blueprint for the initial troops API
-app.register_blueprint(init_troop)
 
 ## a blueprint for the get owners API
 app.register_blueprint(get_owners)
@@ -99,6 +96,9 @@ app.register_blueprint(get_adj)
 
 ## a blueprint for the next state API
 app.register_blueprint(next_state)
+
+## a blueprint for the put one troop API
+app.register_blueprint(put_one_troop)
 
 if __name__ == "__main__":
     app.run(debug=True, host=app.config['config']['host'], port=app.config['config']['port'])
