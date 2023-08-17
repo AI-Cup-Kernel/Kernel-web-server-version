@@ -42,7 +42,7 @@ def put_one_troop_func(player_id):
     main_game.player_turn.number_of_troops_to_place -= 1
 
     # add the node id and player id to the log variable of the game
-    main_game.initialize.append([player_id, node_id])
+    main_game.log_initialize.append([player_id, node_id])
     main_game.update_component_numbers()
 
     return jsonify({'message':'troop added successfully'}),200
