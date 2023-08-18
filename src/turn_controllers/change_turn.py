@@ -2,7 +2,7 @@
 # Date: 2023/8/16
 
 # Description: This file is used to manage the turns of the game
-# it will be called after the game is started
+# it will be called after all the players requested for ready
 
 
 import time
@@ -14,17 +14,21 @@ def change_turn(main_game):
     while True:
         # increase the turn number 
         player_id = main_game.start_turn()
-        print("start turn:", main_game.turn_number)
+
+        # add the turn number to the logs 
+        if main_game.debug:
+            print("start turn:", main_game.turn_number)
+            main_game.print("start turn: " + str(main_game.turn_number))
 
         # request the player to play
         resp = turn_request(player_id, main_game)
 
         # wait for the player to play
         time.sleep(main_game.config["turn_time"])
-        if resp == -1:
-            continue
 
+        # end the turn to add the logs
         main_game.end_turn()
+        
         # announce the end of the turn to the player
         end(player_id, main_game)
       
