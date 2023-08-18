@@ -36,6 +36,10 @@ def attack_func(player_id):
     if attacking_id not in main_game.list_of_nodes.keys():
         return jsonify({'error':'attacking_id is not valid'}),400
     
+    # check if the attacking_id has a owner
+    if main_game.list_of_nodes[attacking_id].owner == None:
+        return jsonify({'error':'attacking_id does not have any owner'}),400
+    
     # check if the attacking_id is owned by the player
     if main_game.list_of_nodes[attacking_id].owner.id != player_id:
         return jsonify({'error':'attacking_id is not owned by the player'}),400

@@ -32,6 +32,7 @@ class Game:
         self.log_troop_count = []
         self.log_put_troop = []
         self.log_attack = []
+        self.log_fortify = []
 
     def update_game_state(self) -> None:
         # update the game state
