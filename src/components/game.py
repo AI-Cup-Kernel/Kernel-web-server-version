@@ -33,7 +33,7 @@ class Game:
         self.log_troop_count = []
         self.log_put_troop = []
         self.log_attack = []
-        self.log_fortify = []
+        self.log_fortify = {}
 
         self.log = {"initialize": self.log_initialize, "turns": {}}
 
@@ -123,7 +123,7 @@ class Game:
             self.log_troop_count = [i.number_of_troops for i in self.list_of_nodes.values()]
             self.log_put_troop = []
             self.log_attack = []
-            self.log_fortify = []
+            self.log_fortify = {}
 
 
         return player_id
