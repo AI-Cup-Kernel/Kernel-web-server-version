@@ -1,8 +1,10 @@
 # author: Mohamad Mahdi Reisi
 
 # this is the main file of the game that will run the game
-# this file will make a server
+# this file reads the map file and creates a game object and initializes it
+# then make a server
 # and add different APIs from blueprints to the server
+# it also has a function to kill the server
 
 from flask import Flask
 from components.game import Game
