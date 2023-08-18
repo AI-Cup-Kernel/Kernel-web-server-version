@@ -1,7 +1,8 @@
-"""
-    this file will make a server 
-    and add different APIs from blueprints to the server
-"""
+# author: Mohamad Mahdi Reisi
+
+# this is the main file of the game that will run the game
+# this file will make a server
+# and add different APIs from blueprints to the server
 
 from flask import Flask
 from components.game import Game
