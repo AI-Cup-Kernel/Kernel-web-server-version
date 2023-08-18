@@ -24,7 +24,7 @@ from tools.calculate_number_of_troops import calculate_number_of_troops
 
 class Game:
     def __init__(self) -> None:
-
+        debug_logs = ""
         self.players = {} # player_id: player object, includes all players in the game
 
         self.nodes = {} # node_id: node object, includes all nodes of the map
@@ -156,3 +156,7 @@ class Game:
                 "attack": self.log_attack,
                 "fortify": self.log_fortify
             }
+
+    def print(self, text):
+        # this function will print the text in the a log
+        self.debug_log += text + "\n"
