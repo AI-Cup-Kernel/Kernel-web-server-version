@@ -106,7 +106,6 @@ class Game:
         turn_thread.start()
         self.game_started = True
 
-
     def start_turn(self):
         # this function will be called at the beginning of each turn
         # it will initialize the turn variables in the game object
