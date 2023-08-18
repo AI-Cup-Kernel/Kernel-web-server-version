@@ -87,6 +87,6 @@ def move_troop_func(player_id):
 
     main_game.state = 4
 
-    main_game.fortify = [troop_count, path]
+    main_game.log_fortify = [troop_count, path]
 
     return jsonify({'message':'troops moved successfully'}),200
