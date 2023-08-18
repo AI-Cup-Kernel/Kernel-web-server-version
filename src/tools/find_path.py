@@ -10,7 +10,7 @@ def DFS(u, v, main_game, player_id):
         if mark[node.id] == 0 and node.owner.id == player_id:
             res, path = DFS(node.id, v, main_game, player_id)
             if res:
-                path = [node.id] + path
+                path = [u] + path
                 return True, path
     return False, []
                 

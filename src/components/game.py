@@ -9,6 +9,7 @@ from turn_controllers.change_turn import change_turn
 import json
 from flask import current_app
 import threading
+from tools.calculate_number_of_troops import calculate_number_of_troops
 
 
 class Game:
@@ -34,12 +35,14 @@ class Game:
         self.log_attack = []
         self.log_fortify = []
 
+        self.log = {"initialize": self.log_initialize, "turns": {}}
+
     def update_game_state(self) -> None:
         # update the game state
         # check if the players has enough turn to put all their initial troops
         if self.game_state == 2:
             return
-        if self.turn_number >= int(self.config["number_of_players"]) * int(self.config["initial_troop"]):
+        if self.turn_number > int(self.config["number_of_players"]) * int(self.config["initial_troop"]):
             self.game_state = 2
 
     def add_player(self, player_id: int) -> None:
@@ -104,3 +107,33 @@ class Game:
             i.adj_player_map.remove(node_obj)
 
         node_obj.adj_player_map = []
+
+    def start_turn(self):
+        self.turn_number += 1
+        player_id = self.turn_number % len(self.players)
+
+        self.update_game_state()
+
+        self.state = 1
+        self.player_turn = self.players[player_id]
+        self.player_turn.number_of_troops_to_place += calculate_number_of_troops(self.player_turn, self)
+
+        if self.game_state == 2:
+            self.log_node_owner = [i.owner.id if i.owner is not None else -1 for i in self.list_of_nodes.values()]
+            self.log_troop_count = [i.number_of_troops for i in self.list_of_nodes.values()]
+            self.log_put_troop = []
+            self.log_attack = []
+            self.log_fortify = []
+
+
+        return player_id
+
+    def end_turn(self):
+        if self.game_state == 2:
+            self.log['turns']['turn'+str(self.turn_number)] = {
+                "nodes_owner": self.log_node_owner,
+                "troop_count": self.log_troop_count,
+                "add_troop": self.log_put_troop,
+                "attack": self.log_attack,
+                "fortify": self.log_fortify
+            }
