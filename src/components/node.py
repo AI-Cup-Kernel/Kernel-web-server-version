@@ -1,16 +1,13 @@
-'''
-this is the most basic component of the Risk game.
-each region is a node, and each node has a list of adjacent nodes in the main map
-each node has an owner, which is a player object.
-each player has it's own list of nodes that make a new map that is subgraph of the main map
-'''
+# author: Mohamad Mahdi Reisi
+
+# this is the most basic component of the Map
+# each region is a node, and each node has a list of adjacent nodes in the main map
+# each node has an owner, which is a player object.
+
 
 class Node:
     def __init__(self, id) -> None:
-        self.id = id
-        self.owner = None # Player object
-        self.number_of_troops = 0 # integer
-        self.component_number = None # integer
-        self.special_items = dict()
-        self.adj_main_map = [] # list of Node objects
-        self.adj_player_map = [] # list of Node objects  
+        self.id = id # each node has an id that is unique in the game
+        self.owner = None # Player object that owns this node
+        self.number_of_troops = 0 # number of troops that are placed on this node
+        self.adj_main_map = [] # list of Node objects that are adjacent to this node in the main map
