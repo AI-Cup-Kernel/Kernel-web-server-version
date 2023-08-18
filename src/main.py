@@ -6,21 +6,27 @@
 from flask import Flask
 from components.game import Game
 import tools.read_config as read_config
-from flask import request
 import os
 
+# set the debug variable to True or False to see the debug messages and generate debug logs 
 debug = False
 
 # read map file 
 main_game = Game()
-main_game.read_map('maps/map2.json')
 
-# debugger for map
-if debug:
-    print("list of nodes: ")
-    for i in range(len(main_game.list_of_nodes)):
-        print([i.id for i in main_game.list_of_nodes[i].adj_main_map])
-    print("end of list of nodes")
+# ask player to choose map from the list of maps
+## show the list of maps from the maps folder
+print("Choose a map from the list of maps:")
+maps = os.listdir('maps')
+for i, map in enumerate(maps):
+    print(i,'-', map)
+
+## get the selected map from the player
+selected_map = input("Enter the number of the map you want to choose: ")
+
+## read the selected map
+main_game.read_map('maps/'+maps[int(selected_map)])
+
 
 # initialize the flask app
 app = Flask(__name__)
@@ -40,6 +46,7 @@ main_game.config = app.config['config']
 # set the game_finished function in the flask global variable
 own_pid = os.getpid()
 def kill_backend():
+    # kill the backend process
     os.kill(own_pid, 9)
     
 main_game.finish_func = kill_backend
@@ -117,5 +124,5 @@ app.register_blueprint(attack)
 app.register_blueprint(move_troop)
 
 
-if __name__ == "__main__":
-    app.run(debug=True, host=app.config['config']['host'], port=app.config['config']['port'])
+# run the server
+app.run(debug=debug, host=app.config['config']['host'], port=app.config['config']['port'])
