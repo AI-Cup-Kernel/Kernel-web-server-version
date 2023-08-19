@@ -48,7 +48,7 @@ def put_one_troop_func(player_id):
         # if the node is not owned by any player, add it to the player
         main_game.add_node_to_player(node_id, player_id)
 
-    elif main_game.list_of_nodes[node_id].owner.id != player_id:
+    elif main_game.nodes[node_id].owner.id != player_id:
         return jsonify({'error':'This node is already owned by another player'}),400
     
     # add one troop to the node and subtract one from the player
