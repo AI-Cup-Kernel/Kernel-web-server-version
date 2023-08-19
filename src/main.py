@@ -12,7 +12,7 @@ import tools.read_config as read_config
 import os
 
 # set the debug variable to True or False to see the debug messages and generate debug logs 
-debug = True
+debug = False
 
 # read map file 
 main_game = Game()
