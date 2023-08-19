@@ -3,6 +3,7 @@
 
 import json
 import datetime
+import os
 
 def check_finish(main_game):
     players_strategic_nodes_count = []
@@ -35,6 +36,9 @@ def check_finish(main_game):
 
 def game_finished(main_game, winner_id):
     # finish the game
+    # make log folder if it does not exist
+    if not os.path.exists("log"):
+        os.makedirs("log")
     # generate and save the main_game.log file into a json file in the log folder
     with open("log/" + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".json", "w") as log_file:
         json.dump(main_game.log, log_file)
@@ -50,12 +54,20 @@ def game_finished(main_game, winner_id):
     for player in main_game.players.values():
         export['player'+str(player.id)+" strategic nodes"] = len([i for i in player.nodes if i.is_strategic]) 
 
+    # make result_log folder if it does not exist
+    if not os.path.exists("result_log"):
+        os.makedirs("result_log")
+
     # save the export in the result log folder
     with open("result_log/" + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".json", "w") as result_log_file: 
         json.dump(export, result_log_file)
 
-    # write debug_logs in the text file in the debug_log folder 
+
+    # write debug_logs in the text file in the debug_log folder
     if main_game.debug:
+        # make debug_log folder if it does not exist
+        if not os.path.exists("debug_log"):
+            os.makedirs("debug_log")
         with open("debug_log/" + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".txt", "w") as debug_log_file:
             debug_log_file.write(main_game.debug_logs)
     main_game.finish_func()
