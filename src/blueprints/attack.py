@@ -12,12 +12,13 @@ main_game = current_app.config['main_game']
 @current_app.config['check_player']
 def attack_func(player_id):
     # this API used to attack a node from another node 
+
     # the body of the request should be like this
     ## attacking_id : the id of the node that will attack
     ## target_id : the id of the node that will be attacked
-    ## fraction: ***
+    ## fraction: the attack continues until the number of troops in the attacking node is fraction of the number of troops in the target node
 
-    # check if the game is in the initial troop putting state
+    # check if the game is in the turn state
     if main_game.game_state != 2:
         return jsonify({'error':'The game is not in the turn state'}),400
     
@@ -63,10 +64,12 @@ def attack_func(player_id):
     # check if the target_id is valid
     if target_id not in main_game.nodes.keys():
         return jsonify({'error':'target_id is not valid'}),400
-    # check if the target_id is not owned by the player
+    
+    # check if the target_id has a owner
     if main_game.nodes[target_id].owner == None:
         return jsonify({'error':'target_id does not have any owner'}),400
     
+    # check if the target_id is not owned by the player
     if main_game.nodes[target_id].owner.id == player_id:
         return jsonify({'error':'target_id is owned by the player'}),400
     
@@ -85,8 +88,8 @@ def attack_func(player_id):
     if main_game.nodes[attacking_id].number_of_troops < 2:
         return jsonify({'error':'attacking node does not have enough troops'}),400
     
-    attacker_troops = main_game.nodes[attacking_id].number_of_troops
-    target_troops = main_game.nodes[target_id].number_of_troops
+    attacker_troops = main_game.nodes[attacking_id].number_of_troops # number of troops in the attacking node
+    target_troops = main_game.nodes[target_id].number_of_troops # number of troops in the target node
 
     while attacker_troops > 1 and target_troops > 0 and attacker_troops/target_troops > fraction:
         if attacker_troops > 3:
@@ -120,9 +123,11 @@ def attack_func(player_id):
     # check if the attacker won
     if target_troops <= 0:
         main_game.nodes[attacking_id].number_of_troops = 1
-        main_game.nodes[target_id].number_of_troops = attacker_troops
+        main_game.nodes[target_id].number_of_troops = attacker_troops - 1
         main_game.remove_node_from_player(target_id, main_game.nodes[target_id].owner.id)
         main_game.add_node_to_player(target_id, player_id)
+        main_game.player_turn.number_of_troops_to_place += main_game.config['number_of_troops_after_successful_attack']
+        
 
     else:
         main_game.nodes[attacking_id].number_of_troops = attacker_troops
