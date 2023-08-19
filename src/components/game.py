@@ -24,7 +24,8 @@ from tools.calculate_number_of_troops import calculate_number_of_troops
 
 class Game:
     def __init__(self) -> None:
-        debug_logs = ""
+        self.debug_logs = ""
+        self.debug = False
         self.players = {} # player_id: player object, includes all players in the game
 
         self.nodes = {} # node_id: node object, includes all nodes of the map
