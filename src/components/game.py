@@ -145,7 +145,6 @@ class Game:
             ## clear the log of the move_troop at each turn
             self.log_fortify = {}
 
-
         return player_id
 
     def end_turn(self):
