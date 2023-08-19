@@ -4,3 +4,5 @@ src/components/__pycache__/
 .DS_Store
 .vscode/
 src/turn_controllers/__pycache__/
+log/
+result_log/

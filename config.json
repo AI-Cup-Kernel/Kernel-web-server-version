@@ -8,5 +8,6 @@
     "number_of_turns": 150,
     "initial_troop": 30,
     "timeout": 1,
-    "number_of_strategic_nodes_to_win": 4
+    "number_of_strategic_nodes_to_win": 4,
+    "number_of_troops_after_successful_attack": 2
 }
