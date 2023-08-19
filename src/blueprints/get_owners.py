@@ -10,7 +10,7 @@ main_game = current_app.config['main_game']
 @current_app.config['check_player']
 def get_owners_func(player_id):
     output_dict = {}
-    for node in main_game.list_of_nodes.values():
+    for node in main_game.nodes.values():
         if node.owner!=None:
              output_dict[node.id] = node.owner.id
         else:
