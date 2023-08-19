@@ -86,6 +86,7 @@ from blueprints.attack import attack
 from blueprints.move_troop import move_troop
 from blueprints.get_strategic_nodes import get_strategic_nodes
 from blueprints.get_number_of_troops_to_put import get_number_of_troops_to_put
+from blueprints.get_reachable import get_reachable
 
 ## a blueprint for the test server
 app.register_blueprint(index)
@@ -134,6 +135,9 @@ app.register_blueprint(get_strategic_nodes)
 
 ## a blueprint for the get number of troops to put API
 app.register_blueprint(get_number_of_troops_to_put)
+
+## a blueprint for the get reachable API
+app.register_blueprint(get_reachable)
 
 # run the server
 app.run(debug=debug, host=app.config['config']['host'], port=app.config['config']['port'])
