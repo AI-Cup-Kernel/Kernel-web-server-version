@@ -12,7 +12,7 @@ import tools.read_config as read_config
 import os
 
 # set the debug variable to True or False to see the debug messages and generate debug logs 
-debug = False
+debug = True
 
 # read map file 
 main_game = Game()
@@ -57,6 +57,7 @@ main_game.finish_func = kill_backend
 
 # set the debug variable in the flask global variable
 app.config['debug'] = debug
+main_game.debug = debug
 
 # set the token_required and check_player functions in the flask global variable
 from tools.check_token import token_required
