@@ -10,6 +10,6 @@ main_game = current_app.config['main_game']
 @current_app.config['check_player']
 def get_adj_func(player_id):
     output_dict = {}
-    for node in main_game.list_of_nodes:
+    for node in main_game.nodes.values():
         output_dict[node.id]= [i.id for i in node.adj_main_map]
     return jsonify(output_dict), 200
