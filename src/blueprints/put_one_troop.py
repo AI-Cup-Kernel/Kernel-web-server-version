@@ -15,6 +15,9 @@ def put_one_troop_func(player_id):
     # body of the request should be like this:
     ## node_id: the id of the node that the player wants to put the troop on it
 
+    # check if the player just put one Troop in a init turn
+    if main_game.state != 1:
+        return jsonify({'error':'You can not put more than one troop in a turn'}),400
     # check if the game is in the initial troop putting state
     if main_game.game_state != 1:
         return jsonify({'error':'The game is not in the initial troop putting state'}),400
@@ -55,4 +58,7 @@ def put_one_troop_func(player_id):
     # add the node id and player id to the log variable of the game
     main_game.log_initialize.append([player_id, node_id])
 
+    # change the state to 2 so player just can put one troop in a turn
+    main_game.state = 2
+    
     return jsonify({'message':'troop added successfully'}),200
