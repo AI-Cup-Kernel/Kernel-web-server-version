@@ -165,3 +165,7 @@ class Game:
     def print(self, text):
         # this function will print the text in the a log
         self.debug_log += text + "\n"
+    
+    def add_node_to_player(self, node_id, player_id):
+        self.players[player_id].nodes.append(self.nodes[node_id])
+        self.nodes[node_id].owner = self.players[player_id]
