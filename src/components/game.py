@@ -87,6 +87,11 @@ class Game:
         # add the strategic nodes to the nodes
         for id in json_py["strategic_nodes"]:
             self.nodes[id].is_strategic = True
+        
+        for i in range(len(json_py["scores_of_strategic_nodes"])):
+            id = json_py["strategic_nodes"][i]
+            score = json_py["scores_of_strategic_nodes"][i]
+            self.nodes[id].score_of_strategic = score
 
     def check_all_players_ready(self) -> None:
         # this function will check if all players are ready to start the game
@@ -132,7 +137,7 @@ class Game:
         # check if the game is in the turns state
         if self.game_state == 2:
             # calculate the number of troops that the player get at the beginning of this turn
-            self.player_turn.number_of_troops_to_place += calculate_number_of_troops(self.player_turn, self)
+            self.player_turn.number_of_troops_to_place += calculate_number_of_troops(player_id, self)
             # initialize the log variables
             ## the log of the node owner at the beginning of each turn
             self.log_node_owner = [i.owner.id if i.owner is not None else -1 for i in self.nodes.values()]
