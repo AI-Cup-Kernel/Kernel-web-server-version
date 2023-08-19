@@ -6,5 +6,6 @@
     "turn_time": 1,
     "number_of_turns": 20,
     "initial_troop": 5,
-    "timeout": 1
+    "timeout": 1,
+    "number_of_strategic_nodes_to_win": 4
 }

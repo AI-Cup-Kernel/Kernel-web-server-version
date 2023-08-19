@@ -82,6 +82,10 @@ class Game:
         for edge in json_py["list_of_edges"]:  
             self.nodes[edge[0]].adj_main_map.append(self.nodes[edge[1]])
             self.nodes[edge[1]].adj_main_map.append(self.nodes[edge[0]])
+        
+        # add the strategic nodes to the nodes
+        for id in json_py["strategic_nodes"]:
+            self.nodes[id].is_strategic = True
 
     def check_all_players_ready(self) -> None:
         # this function will check if all players are ready to start the game
