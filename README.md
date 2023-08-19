@@ -31,4 +31,4 @@ pip install jwt
 | attack | post | error or success message | the attack API |
 | move_troop | post | error or success message | the move troop API |
 | get_strategic_nodes | get | strafegic nodes's id | the get strategic nodes API |
-| get_number_of_troops_to_put | get | number of troops to put | the get number of troops to put API |
+| get_number_of_troops_to_put | get | the number of troops to put | the get number of troops to put API |
