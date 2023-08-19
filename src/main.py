@@ -83,6 +83,7 @@ from blueprints.put_troop import put_troop
 from blueprints.get_player_id import get_player_id
 from blueprints.attack import attack
 from blueprints.move_troop import move_troop
+from blueprints.get_strategic_nodes import get_strategic_nodes
 
 ## a blueprint for the test server
 app.register_blueprint(index)
@@ -125,6 +126,9 @@ app.register_blueprint(attack)
 
 ## a blueprint for the move troop API
 app.register_blueprint(move_troop)
+
+## a blueprint for the get strategic nodes API
+app.register_blueprint(get_strategic_nodes)
 
 
 # run the server
