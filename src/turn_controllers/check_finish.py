@@ -54,4 +54,7 @@ def game_finished(main_game, winner_id):
     with open("result_log/" + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".json", "w") as result_log_file: 
         json.dump(export, result_log_file)
 
+    # write debug_logs in the text file in the debug_log folder 
+    with open("debug_log/" + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".txt", "w") as debug_log_file:
+        debug_log_file.write(main_game.debug_logs)
     main_game.finish_func()
