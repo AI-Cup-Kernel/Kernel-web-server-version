@@ -5,5 +5,4 @@ src/components/__pycache__/
 .vscode/
 src/turn_controllers/__pycache__/
 log/
-result_log/
-.gitignore 
+result_log/ 
