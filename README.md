@@ -1,23 +1,16 @@
-<style>
-r { color: Red }
-b { color: DarkBlue }
-g { color: DarkGreen }
-o { color: DarkOrange }
-</style>
-
 # Kernel-web-server-version
 AI-Cup kernel that communicate with client with Rest API 
 ## Description
-This is a web game in which you artificial intelligence programmers are supposed to participate and compete with each other with the codes you write. The title of this game is Risk and you are supposed to write robots that each try to win.
+This is a web game where artificial intelligence programmers can participate and compete with each other by writing code for robots that try to win. The game is based on the Risk and the objective is to create the best robot possible to win against other players.
 ## Requirements
 To participate in this game, you need to install Flask, requests and jwt, which is as follows:
 ```markdown
 pip install -r requirements.txt
 ```
-## APIs
-| API                         | Type | Output | Description |
-| :-:                         | :-:  | :-:    | :-: |
-| index                       | GET  | "Welcome to Risk Game!" | the test server |
+## List of APIs
+| API                         | Type |
+| :-:                         | :-:  |
+| [index](#index)               | GET  |
 | get_owners                  | GET  | your country's id (-1: isn't for you) | the get owners API |
 | get_troops_count            | GET  | the number of troops in this node | the get troops count API |
 | get_state                   | GET  | the current state of the game | the get state API |
@@ -31,3 +24,12 @@ pip install -r requirements.txt
 | move_troop                  | POST | error or success message | the move troop API |
 | get_strategic_nodes         | GET  | strategic nodes's id | the get strategic nodes API |
 | get_number_of_troops_to_put | GET  | the number of troops to put | the get number of troops to put API |
+
+
+## APIs description
+
+### index <a name="index">
+
+some information about the game
+
+-----------------------------------------------------
