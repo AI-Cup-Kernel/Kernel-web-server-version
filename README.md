@@ -15,7 +15,7 @@ pip install -r requirements.txt
 | get_troops_count            | GET  | the number of troops in this node | the get troops count API |
 | get_state                   | GET  | the current state of the game | the get state API |
 | get_turn_number             | GET  | the number of the player whose turn it is | the get turn number API |
-| get_adj                     | GET  | neighbor node's id | the get adj API |
+| [get_adj](#get_adj)         | GET  |
 | next_state                  | GET  | the next state of the game | the next state API |
 | put_one_troop               | POST | error or success message | the put one troop API |
 | put_troop                   | POST | error or success message | the put troop API |
@@ -28,8 +28,32 @@ pip install -r requirements.txt
 
 ## APIs description
 
-### index <a name="index">
+### index <a name="index"></a> (GET)
 
-some information about the game
+this is API is just for test if the server is running or not
 
+
+output sample:
+```json
+{
+    "message" : "Welcome, server is running"
+}
+```
+
+-----------------------------------------------------
+### get_adj <a name="get_adj"></a> (GET)
+
+this API returns the list of the adjacent nodes of each node
+
+output sample:
+```json
+{
+    "1": [2, 3, 4],
+    "2": [1, 3],
+    "3": [1, 2, 4],
+    "4": [1, 3, 5],
+    "5": [4]
+}
+
+```
 -----------------------------------------------------
