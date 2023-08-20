@@ -1,0 +1,4 @@
+Flask==2.3.2
+Flask-RESTful==0.3.10
+requests==2.31.0
+PyJWT==2.7.0
