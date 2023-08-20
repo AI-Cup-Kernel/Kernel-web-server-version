@@ -6,3 +6,4 @@ src/components/__pycache__/
 src/turn_controllers/__pycache__/
 log/
 result_log/
+.gitignore 
