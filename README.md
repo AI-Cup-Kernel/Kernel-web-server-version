@@ -7,6 +7,11 @@ To participate in this game, you need to install Flask, requests and jwt, which 
 ```markdown
 pip install -r requirements.txt
 ```
+
+## How to run
+
+to run server you just need to run the ```run.py``` file
+
 ## List of APIs
 | API                         | Type |
 | :-:                         | :-:  |
