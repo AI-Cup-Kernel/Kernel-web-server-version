@@ -12,5 +12,5 @@ def get_adj_func(player_id):
     # this API used to the list of the adjacent nodes of each node
     output_dict = {}
     for node in main_game.nodes.values():
-        output_dict[node.id]= [i.id for i in node.adj_main_map]
+        output_dict[str(node.id)]= [i.id for i in node.adj_main_map]
     return jsonify(output_dict), 200
