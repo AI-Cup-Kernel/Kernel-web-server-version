@@ -15,7 +15,7 @@ to run server you just need to run the ```run.py``` file
 ## List of APIs
 | API                         | Type |
 | :-:                         | :-:  |
-| [index](#index)               | GET  |
+| [/](#index)               | GET  |
 | get_owners                  | GET  | your country's id (-1: isn't for you) | the get owners API |
 | get_troops_count            | GET  | the number of troops in this node | the get troops count API |
 | get_state                   | GET  | the current state of the game | the get state API |
@@ -33,7 +33,7 @@ to run server you just need to run the ```run.py``` file
 
 ## APIs description
 
-### index <a name="index"></a> (GET)
+### / <a name="index"></a> (GET)
 
 this is API is just for test if the server is running or not
 

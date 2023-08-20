@@ -1,5 +1,5 @@
 {
-    "host": "localhost",
+    "host": "127.0.0.1",
     "port": 12345,
     "number_of_players": 3,
     "client_port_start": 2000,
