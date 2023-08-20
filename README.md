@@ -28,7 +28,7 @@ to run server you just need to run the ```run.py``` file
 | attack                      | POST | error or success message | the attack API |
 | move_troop                  | POST | error or success message | the move troop API |
 | get_strategic_nodes         | GET  | strategic nodes's id | the get strategic nodes API |
-| get_number_of_troops_to_put | GET  | the number of troops to put | the get number of troops to put API |
+| [get_number_of_troops_to_put](#get_number_of_troops_to_put) | GET  | the number of troops to put | the get number of troops to put API |
 
 
 ## APIs description
@@ -62,3 +62,16 @@ output sample:
 
 ```
 -----------------------------------------------------
+### number_of_troops_to_put <a name="get_number_of_troops_to_put"></a> (GET)
+
+this API returns the number of troops that you can put on the map
+
+output sample:
+```json
+{
+    "number_of_troops": 10
+}
+``` 
+------------------------------------------------------
+
+

@@ -11,5 +11,6 @@ main_game = current_app.config['main_game']
 @current_app.config['token_required']
 @current_app.config['check_player']
 def get_number_of_troops_to_put_func(player_id):
-    output_dict={'number of troops': main_game.player_turn.number_of_troops_to_place}
+    # return the number of troops that the player can put on the map
+    output_dict={"number_of_troops": main_game.player_turn.number_of_troops_to_place}
     return jsonify(output_dict),200
