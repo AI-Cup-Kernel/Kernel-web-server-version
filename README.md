@@ -33,7 +33,8 @@ to run server you just need to run the ```run.py``` file
 
 ## APIs description
 
-### / <a name="index"></a> (GET)
+### / <a name="index"></a>
+### (GET)
 
 this is API is just for test if the server is running or not
 
@@ -46,7 +47,8 @@ output sample:
 ```
 
 -----------------------------------------------------
-### get_adj <a name="get_adj"></a> (GET)
+### get_adj <a name="get_adj"></a>
+### (GET)
 
 this API returns the list of the adjacent nodes of each node
 
@@ -62,7 +64,8 @@ output sample:
 
 ```
 -----------------------------------------------------
-### number_of_troops_to_put <a name="get_number_of_troops_to_put"></a> (GET)
+### number_of_troops_to_put <a name="get_number_of_troops_to_put"></a> 
+### (GET)
 
 this API returns the number of troops that you can put on the map
 
@@ -73,5 +76,6 @@ output sample:
 }
 ``` 
 ------------------------------------------------------
+
 
 
