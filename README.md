@@ -26,7 +26,7 @@ to run server you just need to run the ```run.py``` file
 | [put_troop](#put_troop)     | POST | error or success message | the put troop API |
 | get_player_id               | GET  | player id | the get player id API |
 | [attack](#attack)              | POST | error or success message | the attack API |
-| move_troop                  | POST | error or success message | the move troop API |
+| [move_troop](#move_troop) | POST | error or success message | the move troop API |
 | get_strategic_nodes         | GET  | strategic nodes's id | the get strategic nodes API |
 | [get_number_of_troops_to_put](#get_number_of_troops_to_put) | GET  | the number of troops to put | the get number of troops to put API |
 
@@ -160,3 +160,39 @@ output sample2:
     "error":"fraction is not provided"
 }
 ```
+
+------------------------------------------------------
+### /move_troop <a name="move_troop"></a>
+#### (POST)
+
+you can use this API to move your troops from one node to another node 
+
+input sample:
+```json
+{
+    "source": 1,
+    "destination": 2,
+    "troop_count": 2
+}
+```
+rules: 
+    - between source and destination nodes must be a path that you own all of the nodes in that path
+    - the source node must have enough troops to move 
+    - at least one troop must stay in the source node
+    - you should own both of the source and destination nodes
+    - you can just move your troops once in each turn
+
+output sample1:
+```json
+{
+    "message":"troops moved successfully"
+}
+```
+
+output sample2:
+```json
+{
+    "error":"troop_count is not provided"
+}
+```
+------------------------------------------------------

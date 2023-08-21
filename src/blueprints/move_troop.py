@@ -10,6 +10,13 @@ main_game = current_app.config['main_game']
 @current_app.config['token_required']
 @current_app.config['check_player']
 def move_troop_func(player_id):
+    # this API used to move troops from source to destination
+   
+    # the body of the request should be like this
+    ## source: the source node id
+    ## destination: the destination node id
+    ## troop_count: the number of troops to move
+
     # check if the game is in the turn state
     if main_game.game_state != 2:
         return jsonify({'error':'The game is not in the turn state'}),400
