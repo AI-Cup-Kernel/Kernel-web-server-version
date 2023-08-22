@@ -62,6 +62,10 @@ def put_troop_func(player_id):
     elif main_game.nodes[node_id].owner.id != player_id:
         return jsonify({'error':'This node is already owned by another player'}),400
     
+    # check if the number_of_troops is positive
+    if number_of_troops <= 0:
+        return jsonify({'error':'number_of_troops should be positive'}),400
+    
     # add one troop to the node and subtract one from the player
     main_game.nodes[node_id].number_of_troops += number_of_troops
     main_game.player_turn.number_of_troops_to_place -= number_of_troops
