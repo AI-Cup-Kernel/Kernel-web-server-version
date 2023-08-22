@@ -88,6 +88,10 @@ def move_troop_func(player_id):
     if not res:
         return jsonify({'error':'there is no path between source and destination'}),400
     
+    # check if the number of troops is positive
+    if troop_count <= 0:
+        return jsonify({'error':'troop_count should be positive'}),400
+
     main_game.nodes[source].number_of_troops -= troop_count
     main_game.nodes[destination].number_of_troops += troop_count
 

@@ -87,6 +87,10 @@ def attack_func(player_id):
     if main_game.nodes[attacking_id].number_of_troops < 2:
         return jsonify({'error':'attacking node does not have enough troops'}),400
     
+    # check if the fraction is a positive number
+    if fraction < 0:
+        return jsonify({'error':'fraction should be positive'}),400
+
     attacker_troops = main_game.nodes[attacking_id].number_of_troops # number of troops in the attacking node
     target_troops = main_game.nodes[target_id].number_of_troops # number of troops in the target node
 
