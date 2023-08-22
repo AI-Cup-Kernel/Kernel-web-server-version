@@ -7,12 +7,12 @@
 # it also has a function to kill the server
 
 from flask import Flask
-from components.game import Game
-import tools.read_config as read_config
+from src.components.game import Game
+import src.tools.read_config as read_config
 import os
 
 # set the debug variable to True or False to see the debug messages and generate debug logs 
-debug = False
+debug = True
 
 # read map file 
 main_game = Game()
@@ -50,6 +50,8 @@ main_game.config = app.config['config']
 own_pid = os.getpid()
 def kill_backend():
     # kill the backend process
+    if debug:
+        print("killing the backend process")
     os.kill(own_pid, 9)
     
 main_game.finish_func = kill_backend
@@ -60,8 +62,8 @@ app.config['debug'] = debug
 main_game.debug = debug
 
 # set the token_required and check_player functions in the flask global variable
-from tools.check_token import token_required
-from tools.check_player import check_player
+from src.tools.check_token import token_required
+from src.tools.check_player import check_player
 
 app.config['token_required'] = token_required
 app.config['check_player'] = check_player
@@ -70,23 +72,23 @@ app.config['check_player'] = check_player
 # register the blueprints
 
 # import blueprints
-from blueprints.index import index
-from blueprints.login import login
-from blueprints.ready import ready
-from blueprints.get_owners import get_owners
-from blueprints.get_troops_count import get_troops_count
-from blueprints.get_state import get_state
-from blueprints.get_turn_number import get_turn_number
-from blueprints.get_adj import get_adj
-from blueprints.next_state import next_state
-from blueprints.put_one_troop import put_one_troop
-from blueprints.put_troop import put_troop
-from blueprints.get_player_id import get_player_id
-from blueprints.attack import attack
-from blueprints.move_troop import move_troop
-from blueprints.get_strategic_nodes import get_strategic_nodes
-from blueprints.get_number_of_troops_to_put import get_number_of_troops_to_put
-from blueprints.get_reachable import get_reachable
+from src.blueprints.index import index
+from src.blueprints.login import login
+from src.blueprints.ready import ready
+from src.blueprints.get_owners import get_owners
+from src.blueprints.get_troops_count import get_troops_count
+from src.blueprints.get_state import get_state
+from src.blueprints.get_turn_number import get_turn_number
+from src.blueprints.get_adj import get_adj
+from src.blueprints.next_state import next_state
+from src.blueprints.put_one_troop import put_one_troop
+from src.blueprints.put_troop import put_troop
+from src.blueprints.get_player_id import get_player_id
+from src.blueprints.attack import attack
+from src.blueprints.move_troop import move_troop
+from src.blueprints.get_strategic_nodes import get_strategic_nodes
+from src.blueprints.get_number_of_troops_to_put import get_number_of_troops_to_put
+from src.blueprints.get_reachable import get_reachable
 
 ## a blueprint for the test server
 app.register_blueprint(index)
@@ -140,4 +142,4 @@ app.register_blueprint(get_number_of_troops_to_put)
 app.register_blueprint(get_reachable)
 
 # run the server
-app.run(debug=debug, host=app.config['config']['host'], port=app.config['config']['port'])
+app.run(debug=False, host=app.config['config']['host'], port=app.config['config']['port'])

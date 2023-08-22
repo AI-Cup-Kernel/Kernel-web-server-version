@@ -1,6 +1,4 @@
 from flask import Blueprint , jsonify , current_app 
-from components.game import Game
-
 
 
 get_strategic_nodes = Blueprint('get_strategic_nodes',__name__)

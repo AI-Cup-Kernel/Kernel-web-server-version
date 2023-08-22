@@ -1,6 +1,6 @@
 from flask import Blueprint , jsonify , current_app 
 from flask import request
-from tools.find_path import find_path
+from src.tools.find_path import find_path
 
 move_troop = Blueprint('move_troop',__name__)
 

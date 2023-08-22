@@ -6,8 +6,8 @@
 
 
 import time
-from turn_controllers.start_turn import start_turn_request, end_turn_request
-from turn_controllers.check_finish import check_finish
+from src.turn_controllers.start_turn import start_turn_request, end_turn_request
+from src.turn_controllers.check_finish import check_finish
 
 
 def change_turn(main_game):

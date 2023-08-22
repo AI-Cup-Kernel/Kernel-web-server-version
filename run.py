@@ -14,15 +14,5 @@ file_path = os.path.abspath(__file__).split('run.py')[0]
 os.chdir(file_path)
 
 
-different_python_name_in_terminal = ['python', 'python3', 'py']
+import src.main
 
-# run the main.py file
-flag = False
-for i in different_python_name_in_terminal:
-    resp = os.system(i + ' src/main.py')
-    if resp == 0:
-        flag = True
-        break
-
-if not flag:
-    print('Error: python is not installed on your system or you have not added it to the path')

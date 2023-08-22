@@ -1,5 +1,4 @@
 from flask import Blueprint , jsonify , current_app 
-from components.game import Game
 
 
 get_turn_number = Blueprint('get_turn_number',__name__)

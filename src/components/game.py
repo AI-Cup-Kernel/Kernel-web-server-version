@@ -13,13 +13,13 @@
 ## 2: the game started (turns state)
 
 
-from components.node import Node
-from components.player import Player
-from turn_controllers.change_turn import change_turn
+from src.components.node import Node
+from src.components.player import Player
+from src.turn_controllers.change_turn import change_turn
 import json
 from flask import current_app
 import threading
-from tools.calculate_number_of_troops import calculate_number_of_troops
+from src.tools.calculate_number_of_troops import calculate_number_of_troops
 
 
 class Game:

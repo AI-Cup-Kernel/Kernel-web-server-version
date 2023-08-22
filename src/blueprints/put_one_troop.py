@@ -1,5 +1,4 @@
 from flask import Blueprint , jsonify , current_app 
-from components.game import Game
 from flask import request
 
 put_one_troop = Blueprint('put_one_troop',__name__)

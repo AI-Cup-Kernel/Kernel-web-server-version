@@ -1,5 +1,4 @@
 from flask import Blueprint , jsonify , current_app 
-from components.game import Game
 from flask import request
 import random
 

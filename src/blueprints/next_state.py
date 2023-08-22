@@ -1,5 +1,4 @@
 from flask import Blueprint , jsonify , current_app 
-from components.game import Game
 
 
 next_state = Blueprint('next_state',__name__)
