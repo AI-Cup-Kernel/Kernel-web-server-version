@@ -28,7 +28,7 @@ def check_finish(main_game):
             return 
 
         # find players with the most strategic nodes
-        player = [main_game.players[i] for i in range(len(main_game.players)) if players_strategic_nodes_count[i] == max_strategic_nodes]
+        players = [main_game.players[i] for i in range(len(main_game.players)) if players_strategic_nodes_count[i] == max_strategic_nodes]
 
 
         # find the player with the most nodes
