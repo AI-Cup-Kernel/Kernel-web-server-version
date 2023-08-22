@@ -6,7 +6,7 @@ that means it has a server on the port that it said in the login API
 from flask import Blueprint
 from flask import current_app
 from flask import jsonify
-
+import os
 
 # get the main_game instance from the flask global variable
 main_game = current_app.config['main_game']
@@ -21,6 +21,8 @@ ready = Blueprint('ready', __name__)
 def ready_func(player_id):
     try:
         main_game.players[player_id].is_ready = True
+        # disable proxy and vpn for the player IP 
+        os.environ['NO_PROXY'] = main_game.players[player_id].ip
         output_dict = {"message": "every thing is ok, you should wait for other players to be ready"}
         main_game.check_all_players_ready()
         return jsonify(output_dict), 200

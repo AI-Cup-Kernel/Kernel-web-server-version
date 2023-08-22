@@ -141,8 +141,5 @@ app.register_blueprint(get_number_of_troops_to_put)
 ## a blueprint for the get reachable API
 app.register_blueprint(get_reachable)
 
-# disable proxy and vpn for the server
-os.environ['NO_PROXY'] = f'{app.config["config"]["host"]}:{app.config["config"]["port"]}'
-
 # run the server
 app.run(debug=False, host=app.config['config']['host'], port=app.config['config']['port'])
