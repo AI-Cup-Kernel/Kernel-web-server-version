@@ -125,8 +125,9 @@ def attack_func(player_id):
         main_game.nodes[target_id].number_of_troops = attacker_troops - 1
         main_game.remove_node_from_player(target_id, main_game.nodes[target_id].owner.id)
         main_game.add_node_to_player(target_id, player_id)
-        main_game.player_turn.number_of_troops_to_place += main_game.config['number_of_troops_after_successful_attack']
-        
+        if main_game.player_turn.has_won_troop == False:
+            main_game.player_turn.number_of_troops_to_place += main_game.config['number_of_troops_after_successful_attack']
+            main_game.player_turn.has_won_troop = True
 
     else:
         main_game.nodes[attacking_id].number_of_troops = attacker_troops

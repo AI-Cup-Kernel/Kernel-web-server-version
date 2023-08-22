@@ -45,7 +45,7 @@ class Game:
         self.log_put_troop = [] # the log of the number of troops that are put on the map at each turn
         self.log_attack = [] # the log of the attacks at each turn
         self.log_fortify = {} # the log of the move_troop at each turn
-
+        self.has_won_troop = False
         # the main log file that will saved at the end of the game
         self.log = {"initialize": self.log_initialize, "turns": {}} 
 
@@ -133,7 +133,7 @@ class Game:
         self.state = 1
         # initialize the player who should play this turn
         self.player_turn = self.players[player_id]
-
+        self.has_won_troop = False
         # check if the game is in the turns state
         if self.game_state == 2:
             # calculate the number of troops that the player get at the beginning of this turn
