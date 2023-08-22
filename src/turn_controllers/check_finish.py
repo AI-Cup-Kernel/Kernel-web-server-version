@@ -4,8 +4,10 @@
 import json
 import datetime
 import os
+import random
 
 def check_finish(main_game):
+    # find the number of strategic nodes for each player    
     players_strategic_nodes_count = []
     for player in main_game.players.values():
         number_of_strategic_nodes = 0
@@ -20,19 +22,55 @@ def check_finish(main_game):
         max_strategic_nodes = max(players_strategic_nodes_count)
         # if there is just one player with the most strategic nodes
         if players_strategic_nodes_count.count(max_strategic_nodes) == 1:
+            if main_game.debug:
+                main_game.print("player won because of having the most strategic nodes")
             game_finished(main_game, players_strategic_nodes_count.index(max_strategic_nodes))
-        else:
-            # the player with most nodes will win
-            max_nodes = []
-            for player in main_game.players.values():
-                max_nodes.append(len(player.nodes))
+            return 
 
-            game_finished(main_game, max_nodes.index(max(max_nodes)))
+        # find players with the most strategic nodes
+        player = [main_game.players[i] for i in range(len(main_game.players)) if players_strategic_nodes_count[i] == max_strategic_nodes]
+
+
+        # find the player with the most nodes
+        number_of_nodes = []
+        for player in players:
+            number_of_nodes.append(len(player.nodes))
+            
+        # if there is just one player with the most nodes
+        if number_of_nodes.count(max(number_of_nodes)) == 1:
+            if main_game.debug:
+                main_game.print("player won because of having the most nodes among players with the most strategic nodes")
+            game_finished(main_game, number_of_nodes.index(max(number_of_nodes)))
+            return 
+        
+        players = [players[i] for i in range(len(players)) if number_of_nodes[i] == max(number_of_nodes)]
+
+        # find the player with the most troops
+        players_troops_count = []
+        for player in players:
+            players_troops_count.append(sum([i.number_of_troops for i in player.nodes]))
+
+        # if there is just one player with the most troops
+        if players_troops_count.count(max(players_troops_count)) == 1:
+            if main_game.debug:
+                main_game.print("player won because of having the most troops among players with the most strategic nodes and normal nodes")
+            game_finished(main_game, players_troops_count.index(max(players_troops_count)))
+            return
+        
+        # choose a random player from the players with the most troops
+        players = [players[i] for i in range(len(players)) if players_troops_count[i] == max(players_troops_count)]
+        if main_game.debug:
+            main_game.print("player won because of random choice")
+        game_finished(main_game, random.choice(players).id)
+        return
 
     # check if there is a player with enough strategic nodes to win    
     for i in range(len(players_strategic_nodes_count)):
         if players_strategic_nodes_count[i] >= int(main_game.config["number_of_strategic_nodes_to_win"]):
+            if main_game.debug:
+                main_game.print("player won because of having enough strategic nodes")
             game_finished(main_game, i)
+            return
 
 def game_finished(main_game, winner_id):
     # finish the game
