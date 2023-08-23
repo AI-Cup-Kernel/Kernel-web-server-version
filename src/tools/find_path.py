@@ -7,7 +7,7 @@ def DFS(u, v, main_game, player_id):
         return True, [v]
     path = []
     for node in main_game.nodes[u].adj_main_map:
-        if mark[node.id] == 0 and node.owner.id == player_id:
+        if mark[node.id] == 0 and node.owner != None and node.owner.id == player_id:
             res, path = DFS(node.id, v, main_game, player_id)
             if res:
                 path = [u] + path
