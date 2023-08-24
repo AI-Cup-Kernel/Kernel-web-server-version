@@ -17,5 +17,7 @@ def find_reachable(node_id, main_game):
 
     mark = [0 for i in range(len(main_game.nodes))]
     ans.clear()
+    if main_game.nodes[node_id].owner == None:
+        return ans
     DFS(node_id, main_game, main_game.nodes[node_id].owner.id)
     return ans 
