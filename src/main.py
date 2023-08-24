@@ -11,8 +11,6 @@ from src.components.game import Game
 import src.tools.read_config as read_config
 import os
 
-# set the debug variable to True or False to see the debug messages and generate debug logs 
-debug = True
 
 # read map file 
 main_game = Game()
@@ -45,6 +43,9 @@ app.config['main_game'] = main_game
 # set the read_config function in the flask global variable
 app.config['config'] = read_config.read_config()
 main_game.config = app.config['config']
+
+# set the debug variable to True or False to see the debug messages and generate debug logs 
+debug = app.config['config']['debug']
 
 # set the game_finished function in the flask global variable
 own_pid = os.getpid()
