@@ -10,6 +10,7 @@ from flask import Flask
 from src.components.game import Game
 import src.tools.read_config as read_config
 import os
+import requests
 
 
 # read map file 
@@ -53,6 +54,11 @@ def kill_backend():
     # kill the backend process
     if debug:
         print("killing the backend process")
+    for player in main_game.players.values():
+        try:
+            requests.get('http://'+player.ip+':'+str(player.port)+'/kill', headers={'x-access-token': player.token}, timeout=0.1)
+        except:
+            pass
     os.kill(own_pid, 9)
     
 main_game.finish_func = kill_backend
