@@ -147,5 +147,7 @@ def attack_func(player_id):
             "new_target_owner": main_game.nodes[target_id].owner.id
             }
     main_game.log_attack.append(log)
+    if main_game.debug:
+        main_game.print(f"player {player_id} attacked node {target_id} from node {attacking_id} with fraction {fraction}. successful: {target_troops <= 0}")
 
     return jsonify({'message':'attack is successful'}),200

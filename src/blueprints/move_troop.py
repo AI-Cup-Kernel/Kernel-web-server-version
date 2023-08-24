@@ -99,5 +99,8 @@ def move_troop_func(player_id):
 
     main_game.log_fortify = {"number_of_troops": troop_count,
                              "path": path}
+    
+    if main_game.debug:
+        main_game.print("player " + str(player_id) + " moved " + str(troop_count) + " troops from node " + str(source) + " to node " + str(destination))
 
     return jsonify({'message':'troops moved successfully'}),200

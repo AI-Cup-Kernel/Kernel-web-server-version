@@ -60,6 +60,6 @@ def put_one_troop_func(player_id):
     # change the state to 2 so player just can put one troop in a turn
     main_game.state = 4
     if main_game.debug:
-        main_game.print("put one troop: "+ str(player_id)+ " -> " + str(node_id))
+        main_game.print(f"player {player_id} put one troop on node {node_id}")
 
     return jsonify({'message':'troop added successfully'}),200

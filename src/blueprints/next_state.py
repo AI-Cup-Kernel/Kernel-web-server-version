@@ -19,7 +19,7 @@ def next_state_func(player_id):
     
     main_game.state += 1
     if main_game.debug:
-        main_game.print("**** state changed to: " + str(main_game.state) + " ****") 
+        main_game.print("******* state changed to: " + str(main_game.state) + " *******") 
 
     output_dict={'game_state': main_game.state, 'message': 'success'}
     return jsonify(output_dict),200
