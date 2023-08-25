@@ -24,7 +24,16 @@ for i, map in enumerate(maps):
     print(i,'-', map)
 
 ## get the selected map from the player
-selected_map = input("Enter the number of the map you want to choose: ")
+selected_map = len(maps)
+while True:
+    selected_map = input("Enter the number of the map you want to choose: ")
+    if not selected_map.isdigit():
+        print("input must be a number")
+        continue
+    if int(selected_map) >= len(maps) or int(selected_map) < 0:
+        print("Invalid input")
+        continue
+    break
 
 ## read the selected map
 main_game.read_map('maps/'+maps[int(selected_map)])
