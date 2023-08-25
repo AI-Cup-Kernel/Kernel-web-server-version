@@ -11,29 +11,30 @@ from src.components.game import Game
 import src.tools.read_config as read_config
 import os
 import requests
+import argparse
+
+
+# define argument parser
+parser = argparse.ArgumentParser(description='choose map to play on')
+parser.add_argument('-m', '--map', type=str, help='choose map to play on')
+args = parser.parse_args()
 
 
 # read map file 
 main_game = Game()
 
 # ask player to choose map from the list of maps
-## show the list of maps from the maps folder
-print("Choose a map from the list of maps:")
 maps = os.listdir('maps')
-for i, map in enumerate(maps):
-    print(i,'-', map)
 
 ## get the selected map from the player
-selected_map = len(maps)
-while True:
+selected_map = str(maps.index(args.map)) if args.map != None else "None"
+
+while selected_map.isdigit() == False or int(selected_map) >= len(maps) or int(selected_map) < 0:
+    ## show the list of maps from the maps folder
+    print("Choose a map from the list of maps:")
+    for i, map in enumerate(maps):
+        print(i,'-', map)
     selected_map = input("Enter the number of the map you want to choose: ")
-    if not selected_map.isdigit():
-        print("input must be a number")
-        continue
-    if int(selected_map) >= len(maps) or int(selected_map) < 0:
-        print("Invalid input")
-        continue
-    break
 
 ## read the selected map
 main_game.read_map('maps/'+maps[int(selected_map)])
