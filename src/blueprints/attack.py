@@ -16,7 +16,7 @@ def attack_func(player_id):
     ## attacking_id : the id of the node that will attack
     ## target_id : the id of the node that will be attacked
     ## fraction: the attack continues until the number of troops in the attacking node is fraction of the number of troops in the target node
-
+    ## move_fraction: the fraction of troops that will move to the target node after a successful attack
     # check if the game is in the turn state
     if main_game.game_state != 2:
         return jsonify({'error':'The game is not in the turn state'}),400
@@ -82,6 +82,14 @@ def attack_func(player_id):
     except:
         return jsonify({'error':'fraction is not valid it should be float'}),400
     
+    # check if body has the move_fraction field
+    if 'move_fraction' not in data:
+        return jsonify({'error':'move_fraction is not provided'}),400
+    
+    try:
+        move_fraction = float(data['move_fraction'])
+    except:
+        return jsonify({'error':'move_fraction is not valid it should be float'}),400
 
     # check if the player has at least 2 troops in the attacking node
     if main_game.nodes[attacking_id].number_of_troops < 2:
@@ -130,8 +138,11 @@ def attack_func(player_id):
 
     # check if the attacker won
     if target_troops <= 0:
-        main_game.nodes[attacking_id].number_of_troops = 1
-        main_game.nodes[target_id].number_of_troops = attacker_troops - 1
+        move_troops = int(attacker_troops * move_fraction)
+        if move_troops == 0:
+            move_troops = 1
+        main_game.nodes[attacking_id].number_of_troops = attacker_troops - move_troops
+        main_game.nodes[target_id].number_of_troops = move_troops
         main_game.remove_node_from_player(target_id, main_game.nodes[target_id].owner.id)
         main_game.add_node_to_player(target_id, player_id)
         if main_game.has_won_troop == False:
