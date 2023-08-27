@@ -25,6 +25,9 @@ def change_turn(main_game):
             for i in main_game.nodes.values():
                 main_game.print(f"node {i.id}: owner: {i.owner.id if i.owner is not None else -1}, number of troops: {i.number_of_troops}")
 
+        # show number of troops that the player did not put on the map
+        if main_game.debug:
+            main_game.print(f"player {player_id} has {main_game.player_turn.number_of_troops_to_place} troops to put on the map")
         # request the player to play
         resp = start_turn_request(player_id, main_game)
 
