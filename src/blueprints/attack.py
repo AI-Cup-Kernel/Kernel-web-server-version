@@ -1,4 +1,4 @@
-from flask import Blueprint , jsonify , current_app 
+from flask import Blueprint , jsonify , current_app
 from flask import request
 import random
 
@@ -115,13 +115,18 @@ def attack_func(player_id):
         
         attacker_dice_list.sort(reverse=True)
         target_dice_list.sort(reverse=True)
+        if main_game.config['debug_dice']:
+            main_game.print(f'attacker troops: {attacker_troops} target troops: {target_troops}')
+            main_game.print(f"attacker dice: {attacker_dice_list}" + f" target dice: {target_dice_list}")
 
         for i in range(min(attacker_dice,target_dice)):
             if attacker_dice_list[i] > target_dice_list[i]:
                 target_troops -= 1
             else:
                 attacker_troops -= 1
-    
+        if main_game.config['debug_dice']:
+            main_game.print(f"new attacker troops: {attacker_troops}" + f" new target troops: {target_troops}")
+            main_game.print(f'_________________________________________________________')
 
     # check if the attacker won
     if target_troops <= 0:
