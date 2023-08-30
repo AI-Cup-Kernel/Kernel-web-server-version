@@ -104,7 +104,11 @@ def attack_func(player_id):
         return jsonify({'error':'attacking_id and target_id are not connected'}),400
 
     attacker_troops = main_game.nodes[attacking_id].number_of_troops # number of troops in the attacking node
-    target_troops = main_game.nodes[target_id].number_of_troops # number of troops in the target node
+    target_troops = main_game.nodes[target_id].number_of_troops +  main_game.nodes[target_id].number_of_fort_troops # number of troops in the target node
+
+    # save the number of fort troops in the target node    
+    fort_troops = main_game.nodes[target_id].number_of_fort_troops
+    normal_troops = main_game.nodes[target_id].number_of_troops 
 
     while attacker_troops > 1 and target_troops > 0 and attacker_troops/target_troops > fraction:
         if attacker_troops > 3:
@@ -152,6 +156,8 @@ def attack_func(player_id):
         
         main_game.nodes[attacking_id].number_of_troops = attacker_troops - move_troops
         main_game.nodes[target_id].number_of_troops = move_troops
+        main_game.nodes[target_id].number_of_fort_troops = 0
+
         main_game.remove_node_from_player(target_id, main_game.nodes[target_id].owner.id)
         main_game.add_node_to_player(target_id, player_id)
         if main_game.has_won_troop == False:
@@ -159,8 +165,18 @@ def attack_func(player_id):
             main_game.has_won_troop = True
 
     else:
+        if fort_troops > 0:
+            if target_troops <= normal_troops:
+                main_game.nodes[target_id].number_of_fort_troops = 0
+                main_game.nodes[target_id].number_of_troops = target_troops
+            else:
+                main_game.nodes[target_id].number_of_fort_troops =  target_troops - normal_troops
+                
+
+        else:
+            main_game.nodes[target_id].number_of_troops = target_troops
+        
         main_game.nodes[attacking_id].number_of_troops = attacker_troops
-        main_game.nodes[target_id].number_of_troops = target_troops
 
 
 
