@@ -45,6 +45,7 @@ class Game:
         self.log_put_troop = [] # the log of the number of troops that are put on the map at each turn
         self.log_attack = [] # the log of the attacks at each turn
         self.log_fortify = {} # the log of the move_troop at each turn
+        self.log_fort = [] # the log of the fortify at each turn
         self.has_won_troop = False
         self.move_troop_done = False # a boolean that shows if the move_troop is done or not in the current turn
         # the main log file that will saved at the end of the game
@@ -167,7 +168,8 @@ class Game:
                 "troop_count": self.log_troop_count,
                 "add_troop": self.log_put_troop,
                 "attack": self.log_attack,
-                "fortify": self.log_fortify
+                "fortify": self.log_fortify,
+                "fort": [i.number_of_fort_troops for i in self.nodes.values()]
             }
 
     def print(self, text):
