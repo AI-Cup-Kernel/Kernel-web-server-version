@@ -99,6 +99,10 @@ def attack_func(player_id):
     if fraction < 0:
         return jsonify({'error':'fraction should be positive'}),400
 
+    # check if the attacker_id and target_id are connected
+    if main_game.nodes[attacking_id] not in main_game.nodes[target_id].adj_main_map:
+        return jsonify({'error':'attacking_id and target_id are not connected'}),400
+
     attacker_troops = main_game.nodes[attacking_id].number_of_troops # number of troops in the attacking node
     target_troops = main_game.nodes[target_id].number_of_troops # number of troops in the target node
 
