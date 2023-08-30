@@ -189,7 +189,8 @@ def attack_func(player_id):
             "target": target_id,
             "new_troop_count_attacker": main_game.nodes[attacking_id].number_of_troops,
             "new_troop_count_target": main_game.nodes[target_id].number_of_troops,
-            "new_target_owner": main_game.nodes[target_id].owner.id
+            "new_target_owner": main_game.nodes[target_id].owner.id,
+            "new_fort_troop": main_game.nodes[target_id].number_of_fort_troops
             }
     main_game.log_attack.append(log)
     if main_game.debug:
