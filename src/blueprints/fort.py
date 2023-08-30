@@ -11,12 +11,12 @@ main_game = current_app.config['main_game']
 def fort_func(player_id):
     # this API used to apply the fortification ability of the player
 
-    # check if the player is in the turn state
-    if main_game.state != 2:
+    # check if the Game is in the turn state
+    if main_game.game_state != 2:
         return jsonify({'error':'The game is not in the turn state'}),400
     
-    # check if the game is in the fort state
-    if main_game.game_state != 4:
+    # check if the turn is in the fort state
+    if main_game.state != 4:
         return jsonify({'error':'The game is not in the fort state'}),400
 
     # get the node_id from the request body
@@ -56,7 +56,7 @@ def fort_func(player_id):
         return jsonify({'error':'troop_count is not valid it should be integer'}),400
     
     # check if the troop_count is valid
-    if troop_count <= main_game.nodes[node_id].number_of_troops:
+    if troop_count >= main_game.nodes[node_id].number_of_troops:
         return jsonify({'error':'there is not enough troops in the node'}),400
 
     # check if the player hasn't used the fortification ability in the game
@@ -69,5 +69,8 @@ def fort_func(player_id):
     # fortify the node
     main_game.nodes[node_id].number_of_troops -= troop_count
     main_game.nodes[node_id].number_of_fort_troops += 2 * troop_count
+
+    if main_game.debug:
+        main_game.print(f"player {player_id} fortified node {node_id} with {troop_count} troops")
 
     return jsonify({'success':'the fortification ability is applied successfully'}), 200

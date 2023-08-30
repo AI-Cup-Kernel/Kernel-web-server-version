@@ -107,6 +107,7 @@ from src.blueprints.get_strategic_nodes import get_strategic_nodes
 from src.blueprints.get_number_of_troops_to_put import get_number_of_troops_to_put
 from src.blueprints.get_reachable import get_reachable
 from src.blueprints.get_number_of_fort_troops import get_number_of_fort_troops
+from src.blueprints.fort import fort
 
 ## a blueprint for the test server
 app.register_blueprint(index)
@@ -161,6 +162,9 @@ app.register_blueprint(get_reachable)
 
 ## a blueprint for the get number of fort troops API
 app.register_blueprint(get_number_of_fort_troops)
+
+## a blueprint for the fort API
+app.register_blueprint(fort)
 
 # run the server
 app.run(debug=False, host=app.config['config']['host'], port=app.config['config']['port'])
