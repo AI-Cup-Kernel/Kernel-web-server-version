@@ -145,6 +145,11 @@ def attack_func(player_id):
         move_troops = int(attacker_troops * move_fraction)
         if move_troops == 0:
             move_troops = 1
+
+        if  attacker_troops - move_troops < 1:
+            move_troops -= 1
+            attacker_troops += 1
+        
         main_game.nodes[attacking_id].number_of_troops = attacker_troops - move_troops
         main_game.nodes[target_id].number_of_troops = move_troops
         main_game.remove_node_from_player(target_id, main_game.nodes[target_id].owner.id)
