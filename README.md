@@ -16,23 +16,104 @@ to run server you just need to run the ```run.py``` file
 | API                         | Type |
 | :-:                         | :-:  |
 | [/](#index)               | GET  |
-| get_owners                  | GET  | your country's id (-1: isn't for you) | the get owners API |
-| get_troops_count            | GET  | the number of troops in this node | the get troops count API |
-| get_state                   | GET  | the current state of the game | the get state API |
-| get_turn_number             | GET  | the number of the player whose turn it is | the get turn number API |
-| [get_adj](#get_adj)         | GET  |
-| next_state                  | GET  | the next state of the game | the next state API |
+| [get_owners](#get_owners)                  | GET  | your nodes id (-1: isn't for you) | the get owners API |
+| [get_troops_count](#get_troops_count)            | GET  | the number of troops in this node | the get troops count API |
+| [get_state](#get_state)                   | GET  | the current state of the game | the get state API |
+| [get_turn_number](#get_turn_number)             | GET  | the number of the player whose turn it is | the get turn number API |
+| [get_adj](#get_adj)         | GET  | all adjacent nodes for each node | the get adjacent API |
+| [next_state](#next_state)                  | GET  | the next state of the game | the next state API |
 | [put_one_troop](#put_one_troop) | POST | error or success message| the put one troop API |
 | [put_troop](#put_troop)     | POST | error or success message | the put troop API |
-| get_player_id               | GET  | player id | the get player id API |
+| [get_player_id](#get_player_id)               | GET  | player id | the get player id API |
 | [attack](#attack)              | POST | error or success message | the attack API |
 | [move_troop](#move_troop) | POST | error or success message | the move troop API |
-| get_strategic_nodes         | GET  | strategic nodes's id | the get strategic nodes API |
+| [get_strategic_nodes](#get_strategic_nodes)         | GET  | strategic nodes id | the get strategic nodes API |
 | [get_number_of_troops_to_put](#get_number_of_troops_to_put) | GET  | the number of troops to put | the get number of troops to put API |
+| [get_reachable](#get_reachable)               | GET | nodes to which the owner can transfer troops from id_node | the get reachable API |
 
 
 ## APIs description
 
+### /get_owners <a name="get_owners"></a>
+#### (GET)
+
+this API returns 
+
+input sample:
+```json
+{
+
+}
+```
+
+output sample:
+```json
+{
+
+}
+
+```
+-----------------------------------------------------
+### /get_troops_count <a name="get_troops_count"></a>
+#### (GET)
+
+this API returns 
+
+input sample:
+```json
+{
+
+}
+```
+
+output sample:
+```json
+{
+
+}
+
+```
+-----------------------------------------------------
+### /get_state <a name="get_state"></a>
+#### (GET)
+
+this API returns 
+
+input sample:
+```json
+{
+
+}
+```
+
+output sample:
+```json
+{
+
+}
+
+```
+-----------------------------------------------------
+### /get_turn_number <a name="get_turn_number"></a>
+#### (GET)
+
+this API returns 
+
+input sample:
+```json
+{
+
+}
+```
+
+output sample:
+```json
+{
+
+}
+
+```
+-----------------------------------------------------
 ### / <a name="index"></a>
 #### (GET)
 
@@ -50,7 +131,7 @@ output sample:
 ### /get_adj <a name="get_adj"></a>
 #### (GET)
 
-this API returns the list of the adjacent nodes of each node
+this API returns the list of adjacent nodes for each node
 
 output sample:
 ```json
@@ -64,7 +145,27 @@ output sample:
 
 ```
 -----------------------------------------------------
-### /number_of_troops_to_put <a name="get_number_of_troops_to_put"></a> 
+### /next_state <a name="next_state"></a>
+#### (GET)
+
+this API returns 
+
+input sample:
+```json
+{
+
+}
+```
+
+output sample:
+```json
+{
+
+}
+
+```
+-----------------------------------------------------
+### /get_number_of_troops_to_put <a name="get_number_of_troops_to_put"></a> 
 #### (GET)
 
 this API returns the number of troops that you can put on the map
@@ -128,7 +229,28 @@ output sample2:
     "error":"This node is already owned by another player"
 }
 ```
+
 ------------------------------------------------------
+### /get_player_id <a name="get_player_id"></a>
+#### (GET)
+
+this API returns 
+
+input sample:
+```json
+{
+
+}
+```
+
+output sample:
+```json
+{
+
+}
+
+```
+-----------------------------------------------------
 ### /attack <a name="attack"></a>
 #### (POST)
 
@@ -196,3 +318,43 @@ output sample2:
 }
 ```
 ------------------------------------------------------
+### /get_strategic_nodes <a name="get_strategic_nodes"></a>
+#### (GET)
+
+this API returns 
+
+input sample:
+```json
+{
+
+}
+```
+
+output sample:
+```json
+{
+
+}
+
+```
+-----------------------------------------------------
+### /get_reachable <a name="get_reachable"></a>
+#### (GET)
+
+this API returns 
+
+input sample:
+```json
+{
+
+}
+```
+
+output sample:
+```json
+{
+
+}
+
+```
+-----------------------------------------------------
