@@ -17,6 +17,10 @@ def move_troop_func(player_id):
     ## destination: the destination node id
     ## troop_count: the number of troops to move
 
+    # check if the move troop happened in the current turn
+    if main_game.move_troop_done:
+        return jsonify({'error':'move troop already happened in the current turn'}),400
+
     # check if the game is in the turn state
     if main_game.game_state != 2:
         return jsonify({'error':'The game is not in the turn state'}),400
@@ -99,7 +103,7 @@ def move_troop_func(player_id):
     main_game.nodes[source].number_of_troops -= troop_count
     main_game.nodes[destination].number_of_troops += troop_count
 
-    main_game.state = 4
+    main_game.move_troop_done = True
 
     main_game.log_fortify = {"number_of_troops": troop_count,
                              "path": path}
