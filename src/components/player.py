@@ -11,4 +11,4 @@ class Player:
         self.ip = "" # the ip of the player (it used to send requests to the player)
         self.is_ready = False # a boolean that shows if the player is ready to get requests and play the game or not
         self.token = '' # a token that is used to show the player that requests are from the game server
-    
+        self.use_fort = False # a boolean that shows if the player used fortify or not
