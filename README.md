@@ -366,15 +366,15 @@ this API returns
 input sample:
 ```json
 {
-    node_id: 5,
-    troop_count: 15
+    "node_id": 5,
+    "troop_count": 15
 }
 ```
 
 output sample:
 ```json
 {
-    'success':'the fortification ability is applied successfully'
+    "success":"the fortification ability is applied successfully"
 }
 
 ```
