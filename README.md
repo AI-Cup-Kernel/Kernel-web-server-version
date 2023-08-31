@@ -158,7 +158,7 @@ output sample:
 output sample:
 ```json
 {
-'game_state': 2, 'message': 'success'}
+"game_state": 2, "message": "success"
 }
 
 ```
