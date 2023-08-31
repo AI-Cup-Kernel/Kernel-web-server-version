@@ -31,6 +31,7 @@ to run server you just need to run the ```run.py``` file
 | [get_number_of_troops_to_put](#get_number_of_troops_to_put) | GET  | the number of troops to put | the get number of troops to put API |
 | [get_reachable](#get_reachable)               | GET | nodes to which the owner can transfer troops from id_node | the get reachable API |
 | [fort](#fort) | POST|
+| [get_number_of_fort_troops](#get_number_of_fort_troops)| GET|
 
 ## APIs description
 
@@ -380,3 +381,17 @@ output sample:
 
 ```
 -----------------------------------------------------
+### /get_number_of_fort_troops <a name="get_number_of_fort_troops"></a>
+#### (GET)
+
+this API used to get the number of fort troops on each node
+
+output sample:
+```json
+{
+    "0": 4,
+    "1": 0,
+    "2": 1
+}
+
+```
