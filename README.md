@@ -30,7 +30,7 @@ to run server you just need to run the ```run.py``` file
 | [get_strategic_nodes](#get_strategic_nodes)         | GET  | strategic nodes id | the get strategic nodes API |
 | [get_number_of_troops_to_put](#get_number_of_troops_to_put) | GET  | the number of troops to put | the get number of troops to put API |
 | [get_reachable](#get_reachable)               | GET | nodes to which the owner can transfer troops from id_node | the get reachable API |
-
+| [fort](#fort) | POST|
 
 ## APIs description
 
@@ -340,6 +340,26 @@ output sample:
 -----------------------------------------------------
 ### /get_reachable <a name="get_reachable"></a>
 #### (GET)
+
+this API returns 
+
+input sample:
+```json
+{
+
+}
+```
+
+output sample:
+```json
+{
+
+}
+
+```
+-----------------------------------------------------
+### /fort <a name="fort"></a>
+#### (POST)
 
 this API returns 
 
