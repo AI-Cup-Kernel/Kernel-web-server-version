@@ -149,19 +149,16 @@ output sample:
 ### /next_state <a name="next_state"></a>
 #### (GET)
 
-this API returns 
-
-input sample:
-```json
-{
-
-}
-```
+    This function is used to change the state of the game to the next state 
+    1: put troop state
+    2: attack state
+    3: move troop state
+    4: fortification state
 
 output sample:
 ```json
 {
-
+'game_state': 2, 'message': 'success'}
 }
 
 ```
