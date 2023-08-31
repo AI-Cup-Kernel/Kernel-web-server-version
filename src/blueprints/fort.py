@@ -11,6 +11,10 @@ main_game = current_app.config['main_game']
 def fort_func(player_id):
     # this API used to apply the fortification ability of the player
 
+    # the body of the request should be like this
+    ## node_id : the id of the node that will be fortified
+    ## troop_count : the number of troops that will be fortified
+
     # check if the Game is in the turn state
     if main_game.game_state != 2:
         return jsonify({'error':'The game is not in the turn state'}),400
@@ -37,14 +41,14 @@ def fort_func(player_id):
         return jsonify({'error':'node_id is not valid'}),400
 
     # check the ownership status of the node
+    # check if the node has an owner
     if main_game.nodes[node_id].owner is None:
-        # if the node is not owned by any player, add it to the player
-        main_game.add_node_to_player(node_id, player_id)
+        return jsonify({'error':'This node has no owner'}),400
 
-    elif main_game.nodes[node_id].owner.id != player_id:
+    # check if the node is owned by the player
+    if main_game.nodes[node_id].owner.id != player_id:
         return jsonify({'error':'This node is already owned by another player'}),400
     
-
     # check if the troop_count is provided
     if 'troop_count' not in data:
         return jsonify({'error':'troop_count is not provided'}),400
@@ -68,7 +72,7 @@ def fort_func(player_id):
 
     # fortify the node
     main_game.nodes[node_id].number_of_troops -= troop_count
-    main_game.nodes[node_id].number_of_fort_troops += 2 * troop_count
+    main_game.nodes[node_id].number_of_fort_troops += main_game.config['fort_coef'] * troop_count
 
     if main_game.debug:
         main_game.print(f"player {player_id} fortified node {node_id} with {troop_count} troops")

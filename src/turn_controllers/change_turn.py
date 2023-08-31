@@ -23,7 +23,7 @@ def change_turn(main_game):
             main_game.print("player: "+str(player_id)+ ' -- start time '+ datetime.datetime.now().strftime("%H:%M:%S"))
             # print the owner and number of troops of each node at the beginning of the turn
             for i in main_game.nodes.values():
-                main_game.print(f"node {i.id}: owner: {i.owner.id if i.owner is not None else -1}, number of troops: {i.number_of_troops}")
+                main_game.print(f"node {i.id}: owner: {i.owner.id if i.owner is not None else -1}, number of troops: {i.number_of_troops} , number of fort troops: {i.number_of_fort_troops}")
 
         # show number of troops that the player did not put on the map
         if main_game.debug:
