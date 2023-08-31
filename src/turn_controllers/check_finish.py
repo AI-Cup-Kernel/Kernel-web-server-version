@@ -53,6 +53,10 @@ def game_finished(main_game, score):
     # make log folder if it does not exist
     if not os.path.exists("log"):
         os.makedirs("log")
+
+    # add score the the log file 
+    main_game.log["score"] = score
+    
     # generate and save the main_game.log file into a json file in the log folder
     with open("log/" + datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S") + ".json", "w") as log_file:
         json.dump(main_game.log, log_file)

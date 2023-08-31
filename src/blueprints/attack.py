@@ -15,8 +15,9 @@ def attack_func(player_id):
     # the body of the request should be like this
     ## attacking_id : the id of the node that will attack
     ## target_id : the id of the node that will be attacked
-    ## fraction: the attack continues until the number of troops in the attacking node is fraction of the number of troops in the target node
-    ## move_fraction: the fraction of troops that will move to the target node after a successful attack
+    ## fraction: the attack continues until the number of troops in the attacking node is fraction of the number of troops in the target node or the attacking node has only one troop or the target node has no troops
+    ## move_fraction: the fraction of troops of attacking_id that will move to the target node after a successful attack
+    
     # check if the game is in the turn state
     if main_game.game_state != 2:
         return jsonify({'error':'The game is not in the turn state'}),400
@@ -91,6 +92,10 @@ def attack_func(player_id):
     except:
         return jsonify({'error':'move_fraction is not valid it should be float'}),400
 
+    # check if move fraction is between 0 and 1
+    if move_fraction < 0 or move_fraction > 1:
+        return jsonify({'error':'move_fraction should be between 0 and 1'}),400
+    
     # check if the player has at least 2 troops in the attacking node
     if main_game.nodes[attacking_id].number_of_troops < 2:
         return jsonify({'error':'attacking node does not have enough troops'}),400
@@ -104,7 +109,11 @@ def attack_func(player_id):
         return jsonify({'error':'attacking_id and target_id are not connected'}),400
 
     attacker_troops = main_game.nodes[attacking_id].number_of_troops # number of troops in the attacking node
-    target_troops = main_game.nodes[target_id].number_of_troops # number of troops in the target node
+    target_troops = main_game.nodes[target_id].number_of_troops +  main_game.nodes[target_id].number_of_fort_troops # number of troops in the target node
+
+    # save the number of fort troops in the target node    
+    fort_troops = main_game.nodes[target_id].number_of_fort_troops
+    normal_troops = main_game.nodes[target_id].number_of_troops 
 
     while attacker_troops > 1 and target_troops > 0 and attacker_troops/target_troops > fraction:
         if attacker_troops > 3:
@@ -152,6 +161,8 @@ def attack_func(player_id):
         
         main_game.nodes[attacking_id].number_of_troops = attacker_troops - move_troops
         main_game.nodes[target_id].number_of_troops = move_troops
+        main_game.nodes[target_id].number_of_fort_troops = 0
+
         main_game.remove_node_from_player(target_id, main_game.nodes[target_id].owner.id)
         main_game.add_node_to_player(target_id, player_id)
         if main_game.has_won_troop == False:
@@ -159,8 +170,18 @@ def attack_func(player_id):
             main_game.has_won_troop = True
 
     else:
+        if fort_troops > 0:
+            if target_troops <= normal_troops:
+                main_game.nodes[target_id].number_of_fort_troops = 0
+                main_game.nodes[target_id].number_of_troops = target_troops
+            else:
+                main_game.nodes[target_id].number_of_fort_troops =  target_troops - normal_troops
+
+
+        else:
+            main_game.nodes[target_id].number_of_troops = target_troops
+        
         main_game.nodes[attacking_id].number_of_troops = attacker_troops
-        main_game.nodes[target_id].number_of_troops = target_troops
 
 
 
@@ -169,7 +190,8 @@ def attack_func(player_id):
             "target": target_id,
             "new_troop_count_attacker": main_game.nodes[attacking_id].number_of_troops,
             "new_troop_count_target": main_game.nodes[target_id].number_of_troops,
-            "new_target_owner": main_game.nodes[target_id].owner.id
+            "new_target_owner": main_game.nodes[target_id].owner.id,
+            "new_fort_troop": main_game.nodes[target_id].number_of_fort_troops
             }
     main_game.log_attack.append(log)
     if main_game.debug:
