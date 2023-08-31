@@ -361,7 +361,8 @@ output sample:
 ### /fort <a name="fort"></a>
 #### (POST)
 
-this API returns 
+this API used to apply the fortification ability of the player
+
 
 input sample:
 ```json
