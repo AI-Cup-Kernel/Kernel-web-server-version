@@ -9,6 +9,13 @@ main_game = current_app.config['main_game']
 @current_app.config['token_required']
 @current_app.config['check_player']
 def next_state_func(player_id):
+    ''' 
+    This function is used to change the state of the game to the next state 
+    1: put troop state
+    2: attack state
+    3: move troop state
+    4: fortification state
+    '''
     if main_game.game_state != 2:
         output_dict={'error': 'The game is not in the turn state'}
         return jsonify(output_dict),400
