@@ -6,6 +6,21 @@ import datetime
 import os
 import random
 
+def calculate_score(main_game):
+    # (number of nodes * 1000) + (number of troops)+ (3000/score of strategic nodes)
+    scores = []
+    for i in main_game.players.values():
+        number_of_nodes = len(i.nodes)
+        number_of_troops = 0
+        strategic_score = 0
+        for j in i.nodes:
+            number_of_troops += j.number_of_troops
+            if j.is_strategic:
+                strategic_score += 3000//j.score_of_strategic
+    
+        scores.append((number_of_nodes * 1000) + number_of_troops + strategic_score)
+    return scores 
+
 def check_finish(main_game):
     # find the number of strategic nodes for each player    
     players_strategic_nodes_count = []
@@ -15,64 +30,25 @@ def check_finish(main_game):
             if node.is_strategic:
                 number_of_strategic_nodes += 1
         players_strategic_nodes_count.append(number_of_strategic_nodes)
-        
-    # check if the game is finished
-    if main_game.turn_number >= int(main_game.config["number_of_turns"]):
-        # check if there is a player with the most strategic nodes
-        max_strategic_nodes = max(players_strategic_nodes_count)
-        # if there is just one player with the most strategic nodes
-        if players_strategic_nodes_count.count(max_strategic_nodes) == 1:
-            if main_game.debug:
-                main_game.print("player won because of having the most strategic nodes")
-            game_finished(main_game, players_strategic_nodes_count.index(max_strategic_nodes))
-            return 
-
-        # find players with the most strategic nodes
-        players = [main_game.players[i] for i in range(len(main_game.players)) if players_strategic_nodes_count[i] == max_strategic_nodes]
-
-
-        # find the player with the most nodes
-        number_of_nodes = []
-        for player in players:
-            number_of_nodes.append(len(player.nodes))
-            
-        # if there is just one player with the most nodes
-        if number_of_nodes.count(max(number_of_nodes)) == 1:
-            if main_game.debug:
-                main_game.print("player won because of having the most nodes among players with the most strategic nodes")
-            game_finished(main_game, number_of_nodes.index(max(number_of_nodes)))
-            return 
-        
-        players = [players[i] for i in range(len(players)) if number_of_nodes[i] == max(number_of_nodes)]
-
-        # find the player with the most troops
-        players_troops_count = []
-        for player in players:
-            players_troops_count.append(sum([i.number_of_troops for i in player.nodes]))
-
-        # if there is just one player with the most troops
-        if players_troops_count.count(max(players_troops_count)) == 1:
-            if main_game.debug:
-                main_game.print("player won because of having the most troops among players with the most strategic nodes and normal nodes")
-            game_finished(main_game, players_troops_count.index(max(players_troops_count)))
-            return
-        
-        # choose a random player from the players with the most troops
-        players = [players[i] for i in range(len(players)) if players_troops_count[i] == max(players_troops_count)]
-        if main_game.debug:
-            main_game.print("player won because of random choice")
-        game_finished(main_game, random.choice(players).id)
-        return
-
+    
     # check if there is a player with enough strategic nodes to win    
     for i in range(len(players_strategic_nodes_count)):
         if players_strategic_nodes_count[i] >= int(main_game.config["number_of_strategic_nodes_to_win"]):
             if main_game.debug:
                 main_game.print("player won because of having enough strategic nodes")
-            game_finished(main_game, i)
+            scores = calculate_score(main_game)
+            scores[i] += sum(scores)
+            game_finished(main_game, scores)
             return
+    # check if the game is finished
+    if main_game.turn_number >= int(main_game.config["number_of_turns"]):
+        if main_game.debug:
+            main_game.print("game finished because of number of turns")
+        scores = calculate_score(main_game)
+        game_finished(main_game, scores)
+        return
 
-def game_finished(main_game, winner_id):
+def game_finished(main_game, score):
     # finish the game
     # make log folder if it does not exist
     if not os.path.exists("log"):
@@ -87,7 +63,7 @@ def game_finished(main_game, winner_id):
     export['node_owners'] = [i.owner.id if i.owner != None else -1 for i in main_game.nodes.values()]
     export['troop_count'] = [i.number_of_troops for i in main_game.nodes.values()]
     export['turn_number'] = main_game.turn_number
-    export['winner_id'] = winner_id
+    export['score'] = score
     # add the number of strategic nodes for each player
     for player in main_game.players.values():
         export['player'+str(player.id)+" strategic nodes"] = len([i for i in player.nodes if i.is_strategic]) 

@@ -92,6 +92,10 @@ def move_troop_func(player_id):
     if troop_count <= 0:
         return jsonify({'error':'troop_count should be positive'}),400
 
+    #check if the source and destination isn't same
+    if source == destination:
+        return jsonify({'error':'source and destination should be different'})
+    
     main_game.nodes[source].number_of_troops -= troop_count
     main_game.nodes[destination].number_of_troops += troop_count
 
