@@ -1,9 +1,10 @@
 # Kernel-web-server-version
-AI-Cup kernel that communicate with client with Rest API 
+AI-Cup kernel that communicate with clients with Rest API 
 ## Description
-This is a web game where artificial intelligence programmers can participate and compete with each other by writing code for robots that try to win. The game is based on the Risk and the objective is to create the best robot possible to win against other players.
+This is a game where artificial intelligence programmers can participate and compete with each other by writing code for robots that try to win. The game is based on the Risk and the objective is to create the best robot possible to win against other players.
 ## Requirements
-To participate in this game, you need to install Flask, requests and jwt, which is as follows:
+To participate in this game, you need to install python 3.7 or higher. you can download python from [here](https://www.python.org/downloads/) and install it on your system. don't forget to add python to your path by checking the checkbox in the installation wizard. 
+after that you need to install the requirements by running the following command in the terminal or cmd
 ```markdown
 pip install -r requirements.txt
 ```
@@ -38,19 +39,17 @@ to run server you just need to run the ```run.py``` file
 ### /get_owners <a name="get_owners"></a>
 #### (GET)
 
-this API returns 
-
-input sample:
-```json
-{
-
-}
-```
+this API returns the owner of each node the key is the node id and the value is the owner id
+```-1``` means that the node is not owned by any player
 
 output sample:
 ```json
 {
-
+    "0": 0,
+    "1": 2,
+    "2": -1,
+    "3": 1,
+    "4": 2
 }
 
 ```
@@ -58,19 +57,18 @@ output sample:
 ### /get_troops_count <a name="get_troops_count"></a>
 #### (GET)
 
-this API returns 
+this API returns the number of troops in each node the key is the node id and the value is the number of troops
 
-input sample:
-```json
-{
-
-}
-```
+if a node has ```0``` troops it means that the node is not owned by any player.
 
 output sample:
 ```json
 {
-
+    "0": 4,
+    "1": 0,
+    "2": 5,
+    "3": 11,
+    "4": 20
 }
 
 ```
@@ -78,39 +76,32 @@ output sample:
 ### /get_state <a name="get_state"></a>
 #### (GET)
 
-this API returns 
-
-input sample:
-```json
-{
-
-}
+this API returns the current state of the turn 
+``` markdown
+1: put troop state
+2: attack state
+3: move troop state
+4: fortification state
 ```
 
+
 output sample:
-```json
+
+``` json
 {
-
+    "state": 2
 }
-
 ```
 -----------------------------------------------------
 ### /get_turn_number <a name="get_turn_number"></a>
 #### (GET)
 
-this API returns 
-
-input sample:
-```json
-{
-
-}
-```
+this API returns the turn number of the game
 
 output sample:
 ```json
 {
-
+    "turn_number": 1
 }
 
 ```
@@ -232,19 +223,12 @@ output sample2:
 ### /get_player_id <a name="get_player_id"></a>
 #### (GET)
 
-this API returns 
-
-input sample:
-```json
-{
-
-}
-```
+this API returns your player id
 
 output sample:
 ```json
 {
-
+    "player_id": 2
 }
 
 ```
@@ -252,14 +236,15 @@ output sample:
 ### /attack <a name="attack"></a>
 #### (POST)
 
-you can use this API to attack a node with your node 
+you can use this API to attack a node with your node
 
 input sample:
 ```json
 {
     "attacking_id": 1,
     "target_id": 2,
-    "fraction": 0.5
+    "fraction": 0.5,
+    "move_fraction": 0.5
 }
 ```
 rules: 
@@ -319,39 +304,33 @@ output sample2:
 ### /get_strategic_nodes <a name="get_strategic_nodes"></a>
 #### (GET)
 
-this API returns 
-
-input sample:
-```json
-{
-
-}
-```
+this API returns the strategic nodes id and their score
 
 output sample:
 ```json
 {
-
+    "strategic_nodes": [1, 5, 10, 20, 7, 9],
+    "scores": [1, 2, 8, 4, 5, 3]
 }
 
 ```
 -----------------------------------------------------
 ### /get_reachable <a name="get_reachable"></a>
-#### (GET)
+#### (POST)
 
-this API returns 
+this API returns all nodes that the owner can move troops from the given node to them
 
 input sample:
 ```json
 {
-
+    "node_id": 5
 }
 ```
 
 output sample:
 ```json
 {
-
+    "reachable": [1, 2, 3, 4]
 }
 
 ```
