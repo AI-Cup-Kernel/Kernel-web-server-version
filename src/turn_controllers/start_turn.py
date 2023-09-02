@@ -37,7 +37,7 @@ def start_turn_request(player_id: int, main_game) -> None:
     except:
         print(f"player{player_id} didn't response")
         if main_game.debug:
-            main_game.print(f"player{player_id} didn't response")
+            main_game.print(f"player{player_id} didn't respond")
         return -1
     
 
