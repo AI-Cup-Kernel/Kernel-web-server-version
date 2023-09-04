@@ -1,14 +1,16 @@
 from flask import Blueprint , jsonify , current_app
 from flask import request
 import random
+from src.tools.check_token import token_required
+from src.tools.check_player import check_player
 
 attack = Blueprint('attack',__name__)
 
 main_game = current_app.config['main_game']
 
 @attack.route('/attack',methods=['POST'])
-@current_app.config['token_required']
-@current_app.config['check_player']
+@token_required
+@check_player
 def attack_func(player_id):
     # this API used to attack a node from another node 
 

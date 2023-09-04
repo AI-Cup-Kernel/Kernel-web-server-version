@@ -1,13 +1,14 @@
 from flask import Blueprint , jsonify , current_app 
-
+from src.tools.check_token import token_required
+from src.tools.check_player import check_player
 
 next_state = Blueprint('next_state',__name__)
 
 main_game = current_app.config['main_game']
 
 @next_state.route('/next_state',methods=['GET'])
-@current_app.config['token_required']
-@current_app.config['check_player']
+@token_required
+@check_player
 def next_state_func(player_id):
     ''' 
     This function is used to change the state of the game to the next state 
