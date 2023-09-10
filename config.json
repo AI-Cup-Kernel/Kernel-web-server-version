@@ -6,6 +6,7 @@
     "turn_time": 2,
     "init_time": 0.7,
     "number_of_turns": 165,
+    "minimum_number_of_turns": 126,
     "initial_troop": 35,
     "timeout": 1,
     "number_of_strategic_nodes_to_win": 4,
