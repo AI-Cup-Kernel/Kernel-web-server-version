@@ -32,10 +32,17 @@ def change_turn(main_game):
         resp = start_turn_request(player_id, main_game)
 
         # wait for the player to play
+        wait_time = 0
         if main_game.game_state == 2:
-            time.sleep(main_game.config["turn_time"])
+            wait_time = main_game.config["turn_time"]
         elif main_game.game_state == 1:
-            time.sleep(main_game.config["init_time"])
+            wait_time = main_game.config["init_time"]
+        wait_time *= 1000
+        wait_time = int(wait_time)
+        for i in range(wait_time):
+            if main_game.state == 5:
+                break
+            time.sleep(0.001)
         # end the turn to add the logs for client
         main_game.end_turn()
 

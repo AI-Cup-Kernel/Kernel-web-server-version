@@ -20,7 +20,7 @@ def next_state_func(player_id):
         output_dict={'error': 'The game is not in the turn state'}
         return jsonify(output_dict),400
     
-    if main_game.state >= 4:
+    if main_game.state >= 5:
         output_dict={'error': 'you already finished the turn'}
         return jsonify(output_dict),400
     
