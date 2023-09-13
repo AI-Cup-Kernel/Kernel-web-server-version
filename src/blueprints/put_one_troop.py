@@ -57,8 +57,8 @@ def put_one_troop_func(player_id):
     # add the node id and player id to the log variable of the game
     main_game.log_initialize.append([player_id, node_id])
 
-    # change the state to 5 so player just can put one troop in a turn
-    main_game.state = 5
+    # change the state to 4 so player just can put one troop in a turn
+    main_game.state = 6
     if main_game.debug:
         main_game.print(f"player {player_id} put one troop on node {node_id}")
 
