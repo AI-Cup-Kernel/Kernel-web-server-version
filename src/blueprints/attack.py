@@ -93,7 +93,7 @@ def attack_func(player_id):
         return jsonify({'error':'move_fraction is not valid it should be float'}),400
 
     # check if move fraction is between 0 and 1
-    if move_fraction < 0 or move_fraction > 1:
+    if move_fraction <= 0 or move_fraction >= 1:
         return jsonify({'error':'move_fraction should be between 0 and 1'}),400
     
     # check if the player has at least 2 troops in the attacking node
@@ -155,9 +155,11 @@ def attack_func(player_id):
         if move_troops == 0:
             move_troops = 1
 
-        if  attacker_troops - move_troops < 1:
+        while  attacker_troops - move_troops < 1:
             move_troops -= 1
-            attacker_troops += 1
+        
+        if (move_troops) <= 0 or (attacker_troops - move_troops < 1):
+            return jsonify({'error':'its not possible that this error happens but Im just checking'}),400
         
         main_game.nodes[attacking_id].number_of_troops = attacker_troops - move_troops
         main_game.nodes[target_id].number_of_troops = move_troops
