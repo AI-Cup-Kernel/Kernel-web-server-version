@@ -14,7 +14,7 @@ def printer_func(player_id):
 
     # get text from the request body
     data = request.form.to_dict()
-    
+
     # check if the text is provided
     if 'text' not in data:
         return jsonify({'error':'text is not provided'}),400
@@ -24,4 +24,4 @@ def printer_func(player_id):
     if main_game.debug:
         main_game.print(text)
 
-    return jsonify({'message':'troop added successfully'}),200
+    return jsonify({'message':'printed successfully'}),200
