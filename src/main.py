@@ -12,6 +12,7 @@ import src.tools.read_config as read_config
 import os
 import requests
 import argparse
+import logging
 
 
 # define argument parser
@@ -44,6 +45,12 @@ main_game.read_map('maps/'+maps[int(selected_map)])
 app = Flask(__name__)
 app.app_context().push()
 
+
+#disable flask logs
+if True:
+    app.logger.propagate = False
+    log = logging.getLogger('werkzeug')
+    log.setLevel(logging.ERROR)
 
 # set the secret key
 app.config['SECRET_KEY'] = 'your-secret-key'

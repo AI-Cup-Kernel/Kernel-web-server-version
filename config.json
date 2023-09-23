@@ -3,7 +3,7 @@
     "port": 12345,
     "number_of_players": 3,
     "client_port_start": 2000,
-    "turn_time": 2,
+    "turn_time": 1.5,
     "init_time": 0.7,
     "number_of_turns": 165,
     "minimum_number_of_turns": 126,
