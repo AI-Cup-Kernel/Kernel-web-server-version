@@ -108,6 +108,7 @@ from src.blueprints.get_number_of_troops_to_put import get_number_of_troops_to_p
 from src.blueprints.get_reachable import get_reachable
 from src.blueprints.get_number_of_fort_troops import get_number_of_fort_troops
 from src.blueprints.fort import fort
+from src.blueprints.printer import printer
 
 ## a blueprint for the test server
 app.register_blueprint(index)
@@ -165,6 +166,9 @@ app.register_blueprint(get_number_of_fort_troops)
 
 ## a blueprint for the fort API
 app.register_blueprint(fort)
+
+## a blueprint for the print API
+app.register_blueprint(printer)
 
 # run the server
 app.run(debug=False, host=app.config['config']['host'], port=app.config['config']['port'])
