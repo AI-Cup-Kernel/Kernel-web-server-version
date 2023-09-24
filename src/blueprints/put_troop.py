@@ -1,13 +1,15 @@
 from flask import Blueprint , jsonify , current_app 
 from flask import request
+from src.tools.check_token import token_required
+from src.tools.check_player import check_player
 
 put_troop = Blueprint('put_troop',__name__)
 
 main_game = current_app.config['main_game']
 
 @put_troop.route('/put_troop',methods=['POST'])
-@current_app.config['token_required']
-@current_app.config['check_player']
+@token_required
+@check_player
 def put_troop_func(player_id):
     # this API used to put troops in the map in the put troop state
 

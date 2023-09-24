@@ -7,6 +7,7 @@ from flask import Blueprint
 from flask import current_app
 from flask import jsonify
 import os
+from src.tools.check_token import token_required
 
 # get the main_game instance from the flask global variable
 main_game = current_app.config['main_game']
@@ -17,7 +18,7 @@ ready = Blueprint('ready', __name__)
 
 
 @ready.route('/ready', methods=['GET'])
-@current_app.config['token_required']
+@token_required
 def ready_func(player_id):
     try:
         main_game.players[player_id].is_ready = True

@@ -1,14 +1,16 @@
 from flask import Blueprint , jsonify , current_app 
 from flask import request
 from src.tools.find_path import find_path
+from src.tools.check_token import token_required
+from src.tools.check_player import check_player
 
 move_troop = Blueprint('move_troop',__name__)
 
 main_game = current_app.config['main_game']
 
 @move_troop.route('/move_troop',methods=['POST'])
-@current_app.config['token_required']
-@current_app.config['check_player']
+@token_required
+@check_player
 def move_troop_func(player_id):
     # this API used to move troops from source to destination
    

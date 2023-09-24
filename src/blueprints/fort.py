@@ -1,13 +1,15 @@
 from flask import Blueprint , jsonify , current_app 
 from flask import request
+from src.tools.check_token import token_required
+from src.tools.check_player import check_player
 
 fort = Blueprint('fort',__name__)
 
 main_game = current_app.config['main_game']
 
 @fort.route('/fort',methods=['POST'])
-@current_app.config['token_required']
-@current_app.config['check_player']
+@token_required
+@check_player
 def fort_func(player_id):
     # this API used to apply the fortification ability of the player
 

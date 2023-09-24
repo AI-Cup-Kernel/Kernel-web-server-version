@@ -1,14 +1,16 @@
 from flask import Blueprint , jsonify , current_app 
 from flask import request
 from src.tools.find_reachable import find_reachable
+from src.tools.check_token import token_required
+from src.tools.check_player import check_player
 
 get_reachable = Blueprint('get_reachable',__name__)
 
 main_game = current_app.config['main_game']
 
 @get_reachable.route('/get_reachable',methods=['POST'])
-@current_app.config['token_required']
-@current_app.config['check_player']
+@token_required
+@check_player
 def get_reachable_func(player_id):
     # this API used to find all the nodes that the owner can move it's troops from node_id to them    
     # body of the request should be like this:
