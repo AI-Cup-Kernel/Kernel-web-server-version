@@ -1,6 +1,7 @@
 # Kernel-web-server-version
 AI-Cup kernel that communicate with clients with Rest API 
 ## Description
+[website](https://aicup2023.ir)
 This is a game where artificial intelligence programmers can participate and compete with each other by writing code for robots that try to win. The game is based on the Risk and the objective is to create the best robot possible to win against other players.
 ## Requirements
 To participate in this game, you need to install python 3.7 or higher. you can download python from [here](https://www.python.org/downloads/) and install it on your system. don't forget to add python to your path by checking the checkbox in the installation wizard. 
